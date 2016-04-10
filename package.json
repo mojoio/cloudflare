@@ -1,0 +1,23 @@
+{
+  "name": "cflare",
+  "version": "0.0.0",
+  "description": "cloudflare management for CoreOS",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "(npmts)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pushrocks/cflare.git"
+  },
+  "keywords": [
+    "CoreOS",
+    "cloudflare"
+  ],
+  "author": "Lossless GmbH",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pushrocks/cflare/issues"
+  },
+  "homepage": "https://github.com/pushrocks/cflare#readme"
+}

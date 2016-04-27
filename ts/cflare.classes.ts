@@ -23,16 +23,40 @@ class cflare {
         let done = plugins.q.defer();
         return done.promise;
     };
-    listRecords(){
+    listRecords(domainName:string){
         let done = plugins.q.defer();
+        
         return done.promise;
     }
     listDomains(){
         let done = plugins.q.defer();
+        this.request("GET","/zones")
+            .then(function(responseArg){
+                
+            });
         return done.promise;
     };
-    request(){
+    request(methodArg:string,routeArg:string){
         let done = plugins.q.defer();
+        let options = {
+            method:methodArg,
+            url:"https://api.cloudflare.com/client/v4" + routeArg,
+            headers:{
+                "Content-Type":"application/json",
+                "X-Auth-Email":this.authEmail,
+                "X-Auth-Key":this.authKey
+            }
+        }
+        plugins.request(options,function(err, res, body){
+            if (!err && res.statusCode == 200) {
+                var responseObj = JSON.parse(body);
+                done.resolve(responseObj);
+            } else {
+                console.log(err);
+                console.log(res);
+                done.reject(err);
+            };
+        });
         return done.promise;
     }
 };

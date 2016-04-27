@@ -18,11 +18,11 @@ cflareInstance.auth({
     key:""
 });
 
-cflareInstance.createRecord();
-cflareInstance.removeRecord();
-cflareInstance.copyRecord();
-cflareInstance.listRecords();
-cflareInstance.listDomains();
+cflareInstance.createRecord(); // returns promise with resolve function getting the response;
+cflareInstance.removeRecord(); // returns promise with resolve function getting the response;
+cflareInstance.copyRecord(); // returns promise with resolve function getting the response;
+cflareInstance.listRecords(); // returns promise with resolve function getting the response;
+cflareInstance.listDomains(); // returns promise with resolve function getting the response;
 ```
 
 ### About the authors:

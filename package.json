@@ -19,5 +19,12 @@
   "bugs": {
     "url": "https://github.com/pushrocks/cflare/issues"
   },
-  "homepage": "https://github.com/pushrocks/cflare#readme"
+  "homepage": "https://github.com/pushrocks/cflare#readme",
+  "dependencies": {
+    "beautylog": "^4.1.2",
+    "request": "^2.72.0"
+  },
+  "devDependencies": {
+    "npmts": "^5.0.4"
+  }
 }

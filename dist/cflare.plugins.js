@@ -1,0 +1,6 @@
+"use strict";
+/// <reference path="./typings/main.d.ts" />
+exports.beautylog = require("beautylog");
+exports.request = require("request");
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNmbGFyZS5wbHVnaW5zLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSw0Q0FBNEM7QUFDakMsaUJBQVMsR0FBRyxPQUFPLENBQUMsV0FBVyxDQUFDLENBQUM7QUFDakMsZUFBTyxHQUFHLE9BQU8sQ0FBQyxTQUFTLENBQUMsQ0FBQyIsImZpbGUiOiJjZmxhcmUucGx1Z2lucy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vLyA8cmVmZXJlbmNlIHBhdGg9XCIuL3R5cGluZ3MvbWFpbi5kLnRzXCIgLz5cbmV4cG9ydCBsZXQgYmVhdXR5bG9nID0gcmVxdWlyZShcImJlYXV0eWxvZ1wiKTtcbmV4cG9ydCBsZXQgcmVxdWVzdCA9IHJlcXVpcmUoXCJyZXF1ZXN0XCIpOyJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ==

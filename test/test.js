@@ -1,0 +1,11 @@
+"use strict";
+/// <reference path="../ts/typings/main.d.ts" />
+var cflare = require("../dist/index");
+var nogit = require("../nogit/nogit.json");
+var testCflareAccount = new cflare.CflareAccount();
+testCflareAccount.auth({
+    email: nogit.cfemail,
+    key: nogit.cfkey
+});
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBLGdEQUFnRDtBQUNoRCxJQUFPLE1BQU0sV0FBVyxlQUFlLENBQUMsQ0FBQztBQUN6QyxJQUFJLEtBQUssR0FBRyxPQUFPLENBQUMscUJBQXFCLENBQUMsQ0FBQztBQUUzQyxJQUFJLGlCQUFpQixHQUFHLElBQUksTUFBTSxDQUFDLGFBQWEsRUFBRSxDQUFDO0FBQ25ELGlCQUFpQixDQUFDLElBQUksQ0FBQztJQUNuQixLQUFLLEVBQUUsS0FBSyxDQUFDLE9BQU87SUFDcEIsR0FBRyxFQUFFLEtBQUssQ0FBQyxLQUFLO0NBQ25CLENBQUMsQ0FBQyIsImZpbGUiOiJ0ZXN0LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8vIDxyZWZlcmVuY2UgcGF0aD1cIi4uL3RzL3R5cGluZ3MvbWFpbi5kLnRzXCIgLz5cclxuaW1wb3J0IGNmbGFyZSA9IHJlcXVpcmUoXCIuLi9kaXN0L2luZGV4XCIpO1xyXG5sZXQgbm9naXQgPSByZXF1aXJlKFwiLi4vbm9naXQvbm9naXQuanNvblwiKTtcclxuXHJcbmxldCB0ZXN0Q2ZsYXJlQWNjb3VudCA9IG5ldyBjZmxhcmUuQ2ZsYXJlQWNjb3VudCgpO1xyXG50ZXN0Q2ZsYXJlQWNjb3VudC5hdXRoKHtcclxuICAgIGVtYWlsOiBub2dpdC5jZmVtYWlsLFxyXG4gICAga2V5OiBub2dpdC5jZmtleVxyXG59KTtcclxuXHJcbiJdfQ==

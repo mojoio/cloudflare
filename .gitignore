@@ -5,3 +5,4 @@ ts/**/*.js
 ts/**/*.js.map
 .idea/
 node_modules/
+nogit/

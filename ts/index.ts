@@ -1,2 +1,2 @@
 /// <reference path="./typings/main.d.ts" />
-import plugins = require("./cflare.plugins");
+export {CflareAccount} from "./cflare.classes.cflareaccount";

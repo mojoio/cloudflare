@@ -2,7 +2,7 @@
 import plugins = require("./cflare.plugins");
 import helpers = require("./cflare.classes.helpers");
 
-class cflare {
+export class CflareAccount {
     private authEmail:string;
     private authKey:string;
     private authCheck(){

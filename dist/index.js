@@ -1,3 +1,6 @@
 "use strict";
+/// <reference path="./typings/main.d.ts" />
+var cflare_classes_cflareaccount_1 = require("./cflare.classes.cflareaccount");
+exports.CflareAccount = cflare_classes_cflareaccount_1.CflareAccount;
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZXNDb250ZW50IjpbXSwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0=
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSw0Q0FBNEM7QUFDNUMsNkNBQTRCLGdDQUFnQyxDQUFDO0FBQXJELHFFQUFxRCIsImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vLyA8cmVmZXJlbmNlIHBhdGg9XCIuL3R5cGluZ3MvbWFpbi5kLnRzXCIgLz5cclxuZXhwb3J0IHtDZmxhcmVBY2NvdW50fSBmcm9tIFwiLi9jZmxhcmUuY2xhc3Nlcy5jZmxhcmVhY2NvdW50XCI7Il19

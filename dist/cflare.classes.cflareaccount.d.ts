@@ -8,10 +8,11 @@ export declare class CflareAccount {
         key: string;
     }): void;
     getZoneId(domainName: string): any;
+    getRecord(domainNameArg: string, typeArg: string): any;
     createRecord(): any;
     removeRecord(): any;
-    updateRecord(): void;
+    updateRecord(domainNameArg: string, typeArg: string, valueArg: any): any;
     listRecords(domainName: string): any;
     listZones(domainName?: string): any;
-    request(methodArg: string, routeArg: string, bodyArg?: any): any;
+    request(methodArg: string, routeArg: string, jsonArg?: any): any;
 }

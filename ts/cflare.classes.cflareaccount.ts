@@ -1,4 +1,4 @@
-/// <reference path="./typings/main.d.ts" />
+import "typings-global";
 import plugins = require("./cflare.plugins");
 import helpers = require("./cflare.classes.helpers");
 
@@ -41,21 +41,34 @@ export class CflareAccount {
             })
         return done.promise;
     };
-    createRecord(){
+    createRecord(domainNameArg:string,typeArg:string,contentArg:string){
         let done = plugins.q.defer();
+        this.getZoneId(domainNameArg)
+            .then((domainIdArg)=>{
+                let dataObject = {
+                    name: domainNameArg,
+                    type: typeArg,
+                    content: contentArg
+                };
+                this.request("POST","/zones/" + domainIdArg + "/dns_records",dataObject)
+                    .then(function(responseArg){
+                        done.resolve(responseArg);
+                    });
+            });
         return done.promise;
     };
-    removeRecord(){
+    removeRecord(domainNameArg:string,typeArg:string){
         let done = plugins.q.defer();
+        
         return done.promise;
     };
     updateRecord(domainNameArg:string,typeArg:string,valueArg){
         let done = plugins.q.defer();
         return done.promise;
     };
-    listRecords(domainName:string){
+    listRecords(domainNameArg:string){
         let done = plugins.q.defer();
-        this.getZoneId(domainName)
+        this.getZoneId(domainNameArg)
             .then((domainIdArg)=>{
                 this.request("GET","/zones/" + domainIdArg + "/dns_records?per_page=100")
                     .then(function(responseArg){
@@ -76,8 +89,9 @@ export class CflareAccount {
             });
         return done.promise;
     };
-    request(methodArg:string,routeArg:string,jsonArg?){
+    request(methodArg:string,routeArg:string,dataArg = {}){
         let done = plugins.q.defer();
+        let jsonArg:string = JSON.stringify(dataArg);
         let options = {
             method:methodArg,
             url:"https://api.cloudflare.com/client/v4" + routeArg,
@@ -86,7 +100,7 @@ export class CflareAccount {
                 "X-Auth-Email":this.authEmail,
                 "X-Auth-Key":this.authKey
             },
-            json:jsonArg
+            body:jsonArg
         };
         plugins.request(options,function(err, res, body){
             if (!err && res.statusCode == 200) {

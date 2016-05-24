@@ -21,12 +21,14 @@
   },
   "homepage": "https://github.com/pushrocks/cflare#readme",
   "dependencies": {
-    "beautylog": "^5.0.0",
+    "beautylog": "^5.0.6",
     "q": "^1.4.1",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "typings-global": "^1.0.3"
   },
   "devDependencies": {
-    "npmts": "^5.1.5",
-    "should": "^8.3.1"
+    "npmts": "^5.1.13",
+    "should": "^8.4.0",
+    "typings-test": "^1.0.1"
   }
 }

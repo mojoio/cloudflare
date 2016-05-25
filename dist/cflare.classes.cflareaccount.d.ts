@@ -11,7 +11,7 @@ export declare class CflareAccount {
     getZoneId(domainName: string): any;
     getRecord(domainNameArg: string, typeArg: string): any;
     createRecord(domainNameArg: string, typeArg: string, contentArg: string): any;
-    removeRecord(): any;
+    removeRecord(domainNameArg: string, typeArg: string): any;
     updateRecord(domainNameArg: string, typeArg: string, valueArg: any): any;
     listRecords(domainNameArg: string): any;
     listZones(domainName?: string): any;

@@ -43,8 +43,15 @@ describe("cflare",function(){
         })
         describe(".createRecord",function(){
             this.timeout(10000);
-            it("should create a valid record for a domain",function(done){
+            it("should create a valid record for a level 2 domain",function(done){
                 testCflareAccount.createRecord("bleu.de","A","127.0.0.1")
+                    .then(function(responseArg){
+                        console.log(responseArg);
+                        done();
+                    });
+            });
+            it("should create a valid record for a subdomain",function(done){
+                testCflareAccount.createRecord("subdomain.bleu.de","A","127.0.0.1")
                     .then(function(responseArg){
                         console.log(responseArg);
                         done();
@@ -52,13 +59,13 @@ describe("cflare",function(){
             });
         });
         describe(".removeRecord",function(){
-            it("should remove a record from Cloudflare",function(done){
+            /*it("should remove a record from Cloudflare",function(done){
                 testCflareAccount.removeRecord()
                     .then(function(responseArg){
                         console.log(responseArg);
                         done();
-                    })
-            });
+                    });
+            });*/
         });
     })
 });

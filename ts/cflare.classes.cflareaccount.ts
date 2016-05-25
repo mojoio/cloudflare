@@ -43,10 +43,12 @@ export class CflareAccount {
     };
     createRecord(domainNameArg:string,typeArg:string,contentArg:string){
         let done = plugins.q.defer();
-        this.getZoneId(domainNameArg)
+        let domain = new plugins.smartstring.Domain(domainNameArg);
+        let zoneName:string = domain.level2 + "." + domain.level1;
+        this.getZoneId(zoneName)
             .then((domainIdArg)=>{
                 let dataObject = {
-                    name: domainNameArg,
+                    name: domain.fullName,
                     type: typeArg,
                     content: contentArg
                 };
@@ -59,7 +61,12 @@ export class CflareAccount {
     };
     removeRecord(domainNameArg:string,typeArg:string){
         let done = plugins.q.defer();
-        
+        let domain = new plugins.smartstring.Domain(domainNameArg);
+        let zoneName = domain.level2 + "." + domain.level1;
+        this.listRecords(zoneName)
+            .then((responseArg) => {
+                let filteredResponse = responseArg;
+            });
         return done.promise;
     };
     updateRecord(domainNameArg:string,typeArg:string,valueArg){

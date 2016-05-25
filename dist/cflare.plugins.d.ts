@@ -2,3 +2,4 @@ import "typings-global";
 export declare let beautylog: any;
 export declare let q: any;
 export declare let request: any;
+export import smartstring = require("smartstring");

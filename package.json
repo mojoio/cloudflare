@@ -24,11 +24,11 @@
     "beautylog": "^5.0.6",
     "q": "^1.4.1",
     "request": "^2.72.0",
-    "smartstring": "^2.0.0",
+    "smartstring": "^2.0.1",
     "typings-global": "^1.0.3"
   },
   "devDependencies": {
-    "npmts": "^5.1.13",
+    "npmts": "^5.1.14",
     "should": "^8.4.0",
     "typings-test": "^1.0.1"
   }

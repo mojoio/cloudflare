@@ -34,7 +34,7 @@ export class CflareAccount {
     getRecord(domainNameArg:string,typeArg:string){
         let done = plugins.q.defer();
         let domain = new plugins.smartstring.Domain(domainNameArg);
-        this.listRecords(domainNameArg)
+        this.listRecords(domain.zoneName)
             .then((responseArg) => {
                 let filteredResponse = responseArg.result.filter((recordArg) => {
                     return (recordArg.type == typeArg && recordArg.name == domainNameArg); 
@@ -45,8 +45,7 @@ export class CflareAccount {
     createRecord(domainNameArg:string,typeArg:string,contentArg:string){
         let done = plugins.q.defer();
         let domain = new plugins.smartstring.Domain(domainNameArg);
-        let zoneName:string = domain.level2 + "." + domain.level1;
-        this.getZoneId(zoneName)
+        this.getZoneId(domain.zoneName)
             .then((domainIdArg)=>{
                 let dataObject = {
                     name: domain.fullName,
@@ -63,20 +62,21 @@ export class CflareAccount {
     removeRecord(domainNameArg:string,typeArg:string){
         let done = plugins.q.defer();
         let domain = new plugins.smartstring.Domain(domainNameArg);
-        let zoneName = domain.level2 + "." + domain.level1;
-        this.listRecords(zoneName)
+        this.getRecord(domain.zoneName,typeArg)
             .then((responseArg) => {
-                let filteredResponse = responseArg;
+                
             });
         return done.promise;
     };
     updateRecord(domainNameArg:string,typeArg:string,valueArg){
         let done = plugins.q.defer();
+        let domain = new plugins.smartstring.Domain(domainNameArg);
         return done.promise;
     };
     listRecords(domainNameArg:string){
         let done = plugins.q.defer();
-        this.getZoneId(domainNameArg)
+        let domain = new plugins.smartstring.Domain(domainNameArg);
+        this.getZoneId(domain.zoneName)
             .then((domainIdArg)=>{
                 this.request("GET","/zones/" + domainIdArg + "/dns_records?per_page=100")
                     .then(function(responseArg){

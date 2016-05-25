@@ -33,6 +33,7 @@ export class CflareAccount {
     }
     getRecord(domainNameArg:string,typeArg:string){
         let done = plugins.q.defer();
+        let domain = new plugins.smartstring.Domain(domainNameArg);
         this.listRecords(domainNameArg)
             .then((responseArg) => {
                 let filteredResponse = responseArg.result.filter((recordArg) => {

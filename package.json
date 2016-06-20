@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "description": "cloudflare management for CoreOS",
   "main": "dist/index.js",
-  "typings":"dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "test": "(npmts)"
   },
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "npmts-g": "^5.2.6",
+    "qenv": "^1.0.6",
     "should": "^9.0.2",
     "typings-test": "^1.0.1"
   }

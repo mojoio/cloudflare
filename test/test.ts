@@ -1,12 +1,13 @@
 import "typings-test";
 import cflare = require("../dist/index");
 let should = require("should");
-let nogit = require("../nogit/nogit.json");
+import {Qenv} from "qenv";
+let testQenv = new Qenv(process.cwd(),process.cwd() + "/.nogit"); 
 
 let testCflareAccount = new cflare.CflareAccount();
 testCflareAccount.auth({
-    email: nogit.cfemail,
-    key: nogit.cfkey
+    email: process.env.CF_EMAIL,
+    key: process.env.CF_KEY
 });
 
 describe("cflare",function(){
@@ -24,7 +25,7 @@ describe("cflare",function(){
         describe(".getZoneId(domainName)",function(){
             it("should get an Cloudflare Id for a domain string",function(done){
                 this.timeout(10000)
-                testCflareAccount.getZoneId("push.rocks")
+                testCflareAccount.getZoneId("bleu.de")
                     .then((responseArg)=>{
                         console.log(responseArg);
                         done();
@@ -34,7 +35,7 @@ describe("cflare",function(){
         describe(".listRecords(domainName)",function(){
             it("should list all records for a specific Domain Name",function(done){
                 this.timeout(10000);
-                testCflareAccount.listRecords("push.rocks")
+                testCflareAccount.listRecords("bleu.de")
                     .then((responseArg) => {
                         console.log(responseArg);
                         done();

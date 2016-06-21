@@ -10,6 +10,8 @@ testLEGACY:
   stage: test1
   script:
     - npmci test legacy
+  only:
+    - tags
   tags:
     - docker
 
@@ -17,6 +19,8 @@ testLTS:
   stage: test2
   script:
     - npmci test lts
+  only:
+    - tags
   tags:
     - docker
     
@@ -24,6 +28,8 @@ testSTABLE:
   stage: test3
   script:
     - npmci test stable
+  only:
+    - tags
   tags:
     - docker
 

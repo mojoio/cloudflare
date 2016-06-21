@@ -3,7 +3,7 @@ import cflare = require("../dist/index");
 let should = require("should");
 import {Qenv} from "qenv";
 let testQenv = new Qenv(process.cwd(),process.cwd() + "/.nogit"); 
-
+console.log(testQenv.missingEnvVars);
 let testCflareAccount = new cflare.CflareAccount();
 testCflareAccount.auth({
     email: process.env.CF_EMAIL,
@@ -13,7 +13,7 @@ testCflareAccount.auth({
 describe("cflare",function(){
     describe(".CflareAccount",function(){
         describe(".listZones()",function(){
-            it("should display an account",function(done){
+            it("should display an entire account",function(done){
                 this.timeout(10000);
                 testCflareAccount.listZones()
                     .then((responseArg)=>{
@@ -59,14 +59,30 @@ describe("cflare",function(){
                     });
             });
         });
-        describe(".removeRecord",function(){
-            /*it("should remove a record from Cloudflare",function(done){
-                testCflareAccount.removeRecord()
+        describe(".getRecord",function(){
+            it("should get a record from Cloudflare",function(done){
+                testCflareAccount.getRecord("bleu.de","A")
                     .then(function(responseArg){
                         console.log(responseArg);
                         done();
                     });
-            });*/
+            });
+        });
+        describe(".removeRecord",function(){
+            it("should remove a record from Cloudflare",function(done){
+                testCflareAccount.removeRecord("bleu.de","A")
+                    .then(function(responseArg){
+                        console.log(responseArg);
+                        done();
+                    });
+            });
+            it("should remove a subdomain record from Cloudflare",function(done){
+                testCflareAccount.removeRecord("subdomain.bleu.de","A")
+                    .then(function(responseArg){
+                        console.log(responseArg);
+                        done();
+                    });
+            });
         });
     })
 });

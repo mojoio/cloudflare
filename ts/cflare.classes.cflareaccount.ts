@@ -39,6 +39,7 @@ export class CflareAccount {
                 let filteredResponse = responseArg.result.filter((recordArg) => {
                     return (recordArg.type == typeArg && recordArg.name == domainNameArg); 
                 })
+                done.resolve(filteredResponse[0]);
             })
         return done.promise;
     };
@@ -62,9 +63,17 @@ export class CflareAccount {
     removeRecord(domainNameArg:string,typeArg:string){
         let done = plugins.q.defer();
         let domain = new plugins.smartstring.Domain(domainNameArg);
-        this.getRecord(domain.zoneName,typeArg)
+        this.getRecord(domain.fullName,typeArg)
             .then((responseArg) => {
-                
+                if(responseArg){
+                    let requestRoute:string = "/zones/" + responseArg.zone_id + "/dns_records/" + responseArg.id; 
+                    this.request("DELETE",requestRoute)
+                        .then((responseArg) => {
+                            done.resolve(responseArg);
+                        });
+                } else {
+                    done.reject();
+                }
             });
         return done.promise;
     };
@@ -110,6 +119,7 @@ export class CflareAccount {
             },
             body:jsonArg
         };
+        //console.log(options);
         plugins.request(options,function(err, res, body){
             if (!err && res.statusCode == 200) {
                 var responseObj = JSON.parse(body);

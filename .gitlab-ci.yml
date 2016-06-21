@@ -1,25 +1,27 @@
 image: hosttoday/ht-docker-node:npmts
 
 stages:
-- test
+- test1
+- test2
+- test3
 - release
 
 testLEGACY:
-  stage: test
+  stage: test1
   script:
-    - npmci test lts
+    - npmci test legacy
   tags:
     - docker
 
 testLTS:
-  stage: test
+  stage: test2
   script:
     - npmci test lts
   tags:
     - docker
     
 testSTABLE:
-  stage: test
+  stage: test3
   script:
     - npmci test stable
   tags:

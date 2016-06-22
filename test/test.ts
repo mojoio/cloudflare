@@ -77,6 +77,7 @@ describe("cflare",function(){
                     });
             });
             it("should remove a subdomain record from Cloudflare",function(done){
+                this.timeout(5000);
                 testCflareAccount.removeRecord("subdomain.bleu.de","A")
                     .then(function(responseArg){
                         console.log(responseArg);

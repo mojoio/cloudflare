@@ -25,7 +25,7 @@
     "beautylog": "^5.0.12",
     "q": "^1.4.1",
     "request": "^2.72.0",
-    "smartstring": "^2.0.9",
+    "smartstring": "^2.0.10",
     "typings-global": "^1.0.3"
   },
   "devDependencies": {

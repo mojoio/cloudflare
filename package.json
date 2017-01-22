@@ -22,16 +22,17 @@
   },
   "homepage": "https://github.com/pushrocks/cflare#readme",
   "dependencies": {
-    "beautylog": "^5.0.18",
-    "q": "^1.4.1",
-    "request": "^2.74.0",
-    "smartstring": "^2.0.15",
-    "typings-global": "^1.0.6"
+    "beautylog": "^6.1.1",
+    "request": "^2.79.0",
+    "smartdelay": "^1.0.1",
+    "smartq": "^1.0.4",
+    "smartstring": "^2.0.22",
+    "typings-global": "^1.0.14"
   },
   "devDependencies": {
-    "npmts-g": "^5.2.8",
-    "qenv": "^1.0.8",
-    "should": "^10.0.0",
-    "typings-test": "^1.0.1"
+    "npmts-g": "^6.0.0",
+    "qenv": "^1.1.3",
+    "should": "^11.1.2",
+    "typings-test": "^1.0.3"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "cflare",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "cloudflare management for CoreOS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

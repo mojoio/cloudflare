@@ -1,7 +1,7 @@
 {
   "name": "cflare",
   "version": "0.0.17",
-  "description": "cloudflare management for CoreOS",
+  "description": "easy cloudflare management",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
@@ -9,18 +9,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pushrocks/cflare.git"
+    "url": "git+https://gitlab.com/pushrocks/cflare.git"
   },
   "keywords": [
-    "CoreOS",
+    "Push.Rocks",
     "cloudflare"
   ],
   "author": "Lossless GmbH",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pushrocks/cflare/issues"
+    "url": "https://gitlab.com/pushrocks/cflare/issues"
   },
-  "homepage": "https://github.com/pushrocks/cflare#readme",
+  "homepage": "https://gitlab.com/pushrocks/cflare#readme",
   "dependencies": {
     "beautylog": "^6.1.1",
     "smartdelay": "^1.0.1",

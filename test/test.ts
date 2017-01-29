@@ -10,6 +10,8 @@ testCflareAccount.auth({
     key: process.env.CF_KEY
 })
 
+let randomPrefix = Math.floor(Math.random() * 2000)
+
 describe('cflare', function () {
     describe('.CflareAccount', function () {
         describe('.listZones()', function () {
@@ -41,16 +43,9 @@ describe('cflare', function () {
             })
         })
         describe('.createRecord', function () {
-            it('should create a valid record for a level 2 domain', function (done) {
-                this.timeout(600000)
-                testCflareAccount.createRecord('bleu.de', 'A', '127.0.0.1')
-                    .then(function (responseArg) {
-                        done()
-                    })
-            })
             it('should create a valid record for a subdomain', function (done) {
                 this.timeout(600000)
-                testCflareAccount.createRecord('subdomain.bleu.de', 'A', '127.0.0.1')
+                testCflareAccount.createRecord(`${randomPrefix}subdomain.bleu.de`, 'A', '127.0.0.1')
                     .then(function (responseArg) {
                         done()
                     })
@@ -67,17 +62,9 @@ describe('cflare', function () {
             })
         })
         describe('.removeRecord', function () {
-            it('should remove a record from Cloudflare', function (done) {
-                this.timeout(600000)
-                testCflareAccount.removeRecord('bleu.de', 'A')
-                    .then(function (responseArg) {
-                        console.log(responseArg)
-                        done()
-                    })
-            })
             it('should remove a subdomain record from Cloudflare', function (done) {
                 this.timeout(600000)
-                testCflareAccount.removeRecord('subdomain.bleu.de', 'A')
+                testCflareAccount.removeRecord(`${randomPrefix}subdomain.bleu.de`, 'A')
                     .then(function (responseArg) {
                         console.log(responseArg)
                         done()

@@ -1,9 +1,8 @@
-import "typings-global";
+import 'typings-global';
 import * as interfaces from './cflare.interfaces';
 export declare class CflareAccount {
     private authEmail;
     private authKey;
-    private authCheck();
     constructor();
     auth(optionsArg: {
         email: string;
@@ -17,4 +16,5 @@ export declare class CflareAccount {
     listRecords(domainNameArg: string): Promise<interfaces.ICflareRecord[]>;
     listZones(domainName?: string): Promise<interfaces.ICflareZone[]>;
     request(methodArg: string, routeArg: string, dataArg?: {}): Promise<{}>;
+    private authCheck();
 }

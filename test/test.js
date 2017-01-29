@@ -1,19 +1,18 @@
 "use strict";
 require("typings-test");
 const cflare = require("../dist/index");
-let should = require("should");
 const qenv_1 = require("qenv");
-let testQenv = new qenv_1.Qenv(process.cwd(), process.cwd() + "/.nogit");
+let testQenv = new qenv_1.Qenv(process.cwd(), process.cwd() + '/.nogit');
 console.log(testQenv.missingEnvVars);
 let testCflareAccount = new cflare.CflareAccount();
 testCflareAccount.auth({
     email: process.env.CF_EMAIL,
     key: process.env.CF_KEY
 });
-describe("cflare", function () {
-    describe(".CflareAccount", function () {
-        describe(".listZones()", function () {
-            it("should display an entire account", function (done) {
+describe('cflare', function () {
+    describe('.CflareAccount', function () {
+        describe('.listZones()', function () {
+            it('should display an entire account', function (done) {
                 this.timeout(30000);
                 testCflareAccount.listZones()
                     .then((responseArg) => {
@@ -21,63 +20,63 @@ describe("cflare", function () {
                 });
             });
         });
-        describe(".getZoneId(domainName)", function () {
-            it("should get an Cloudflare Id for a domain string", function (done) {
+        describe('.getZoneId(domainName)', function () {
+            it('should get an Cloudflare Id for a domain string', function (done) {
                 this.timeout(30000);
-                testCflareAccount.getZoneId("bleu.de")
+                testCflareAccount.getZoneId('bleu.de')
                     .then((responseArg) => {
                     done();
                 });
             });
         });
-        describe(".listRecords(domainName)", function () {
-            it("should list all records for a specific Domain Name", function (done) {
+        describe('.listRecords(domainName)', function () {
+            it('should list all records for a specific Domain Name', function (done) {
                 this.timeout(30000);
-                testCflareAccount.listRecords("bleu.de")
+                testCflareAccount.listRecords('bleu.de')
                     .then((responseArg) => {
                     console.log(responseArg);
                     done();
                 });
             });
         });
-        describe(".createRecord", function () {
-            it("should create a valid record for a level 2 domain", function (done) {
+        describe('.createRecord', function () {
+            it('should create a valid record for a level 2 domain', function (done) {
                 this.timeout(30000);
-                testCflareAccount.createRecord("bleu.de", "A", "127.0.0.1")
+                testCflareAccount.createRecord('bleu.de', 'A', '127.0.0.1')
                     .then(function (responseArg) {
                     done();
                 });
             });
-            it("should create a valid record for a subdomain", function (done) {
+            it('should create a valid record for a subdomain', function (done) {
                 this.timeout(30000);
-                testCflareAccount.createRecord("subdomain.bleu.de", "A", "127.0.0.1")
+                testCflareAccount.createRecord('subdomain.bleu.de', 'A', '127.0.0.1')
                     .then(function (responseArg) {
                     done();
                 });
             });
         });
-        describe(".getRecord", function () {
-            it("should get a record from Cloudflare", function (done) {
+        describe('.getRecord', function () {
+            it('should get a record from Cloudflare', function (done) {
                 this.timeout(30000);
-                testCflareAccount.getRecord("bleu.de", "A")
+                testCflareAccount.getRecord('bleu.de', 'A')
                     .then(function (responseArg) {
                     console.log(responseArg);
                     done();
                 });
             });
         });
-        describe(".removeRecord", function () {
-            it("should remove a record from Cloudflare", function (done) {
+        describe('.removeRecord', function () {
+            it('should remove a record from Cloudflare', function (done) {
                 this.timeout(30000);
-                testCflareAccount.removeRecord("bleu.de", "A")
+                testCflareAccount.removeRecord('bleu.de', 'A')
                     .then(function (responseArg) {
                     console.log(responseArg);
                     done();
                 });
             });
-            it("should remove a subdomain record from Cloudflare", function (done) {
+            it('should remove a subdomain record from Cloudflare', function (done) {
                 this.timeout(30000);
-                testCflareAccount.removeRecord("subdomain.bleu.de", "A")
+                testCflareAccount.removeRecord('subdomain.bleu.de', 'A')
                     .then(function (responseArg) {
                     console.log(responseArg);
                     done();
@@ -86,4 +85,4 @@ describe("cflare", function () {
         });
     });
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGVzdC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbInRlc3QudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBLHdCQUFzQjtBQUN0Qix3Q0FBeUM7QUFDekMsSUFBSSxNQUFNLEdBQUcsT0FBTyxDQUFDLFFBQVEsQ0FBQyxDQUFDO0FBQy9CLCtCQUEwQjtBQUMxQixJQUFJLFFBQVEsR0FBRyxJQUFJLFdBQUksQ0FBQyxPQUFPLENBQUMsR0FBRyxFQUFFLEVBQUMsT0FBTyxDQUFDLEdBQUcsRUFBRSxHQUFHLFNBQVMsQ0FBQyxDQUFDO0FBQ2pFLE9BQU8sQ0FBQyxHQUFHLENBQUMsUUFBUSxDQUFDLGNBQWMsQ0FBQyxDQUFDO0FBQ3JDLElBQUksaUJBQWlCLEdBQUcsSUFBSSxNQUFNLENBQUMsYUFBYSxFQUFFLENBQUM7QUFDbkQsaUJBQWlCLENBQUMsSUFBSSxDQUFDO0lBQ25CLEtBQUssRUFBRSxPQUFPLENBQUMsR0FBRyxDQUFDLFFBQVE7SUFDM0IsR0FBRyxFQUFFLE9BQU8sQ0FBQyxHQUFHLENBQUMsTUFBTTtDQUMxQixDQUFDLENBQUM7QUFFSCxRQUFRLENBQUMsUUFBUSxFQUFDO0lBQ2QsUUFBUSxDQUFDLGdCQUFnQixFQUFDO1FBQ3RCLFFBQVEsQ0FBQyxjQUFjLEVBQUM7WUFDcEIsRUFBRSxDQUFDLGtDQUFrQyxFQUFDLFVBQVMsSUFBSTtnQkFDL0MsSUFBSSxDQUFDLE9BQU8sQ0FBQyxLQUFLLENBQUMsQ0FBQztnQkFDcEIsaUJBQWlCLENBQUMsU0FBUyxFQUFFO3FCQUN4QixJQUFJLENBQUMsQ0FBQyxXQUFXO29CQUNkLElBQUksRUFBRSxDQUFDO2dCQUNYLENBQUMsQ0FBQyxDQUFBO1lBQ1YsQ0FBQyxDQUFDLENBQUM7UUFDUCxDQUFDLENBQUMsQ0FBQztRQUNILFFBQVEsQ0FBQyx3QkFBd0IsRUFBQztZQUM5QixFQUFFLENBQUMsaURBQWlELEVBQUMsVUFBUyxJQUFJO2dCQUM5RCxJQUFJLENBQUMsT0FBTyxDQUFDLEtBQUss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
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGVzdC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbInRlc3QudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBLHdCQUFxQjtBQUNyQix3Q0FBd0M7QUFFeEMsK0JBQTJCO0FBQzNCLElBQUksUUFBUSxHQUFHLElBQUksV0FBSSxDQUFDLE9BQU8sQ0FBQyxHQUFHLEVBQUUsRUFBRSxPQUFPLENBQUMsR0FBRyxFQUFFLEdBQUcsU0FBUyxDQUFDLENBQUE7QUFDakUsT0FBTyxDQUFDLEdBQUcsQ0FBQyxRQUFRLENBQUMsY0FBYyxDQUFDLENBQUE7QUFDcEMsSUFBSSxpQkFBaUIsR0FBRyxJQUFJLE1BQU0sQ0FBQyxhQUFhLEVBQUUsQ0FBQTtBQUNsRCxpQkFBaUIsQ0FBQyxJQUFJLENBQUM7SUFDbkIsS0FBSyxFQUFFLE9BQU8sQ0FBQyxHQUFHLENBQUMsUUFBUTtJQUMzQixHQUFHLEVBQUUsT0FBTyxDQUFDLEdBQUcsQ0FBQyxNQUFNO0NBQzFCLENBQUMsQ0FBQTtBQUVGLFFBQVEsQ0FBQyxRQUFRLEVBQUU7SUFDZixRQUFRLENBQUMsZ0JBQWdCLEVBQUU7UUFDdkIsUUFBUSxDQUFDLGNBQWMsRUFBRTtZQUNyQixFQUFFLENBQUMsa0NBQWtDLEVBQUUsVUFBVSxJQUFJO2dCQUNqRCxJQUFJLENBQUMsT0FBTyxDQUFDLEtBQUssQ0FBQyxDQUFBO2dCQUNuQixpQkFBaUIsQ0FBQyxTQUFTLEVBQUU7cUJBQ3hCLElBQUksQ0FBQyxDQUFDLFdBQVc7b0JBQ2QsSUFBSSxFQUFFLENBQUE7Z0JBQ1YsQ0FBQyxDQUFDLENBQUE7WUFDVixDQUFDLENBQUMsQ0FBQTtRQUNOLENBQUMsQ0FBQyxDQUFBO1FBQ0YsUUFBUSxDQUFDLHdCQUF3QixFQUFFO1lBQy9CLEVBQUUsQ0FBQyxpREFBaUQsRUFBRSxVQUFVLElBQUk7Z0JBQ2hFLElBQUksQ0FBQyxPQUFPLENBQUMsS0FBSyxDQUFDLENBQUE7Z0JBQ25CLGlCQUFpQixDQUFDLFNBQVMsQ0FBQyxTQUFTLENBQUM7cUJBQ2pDLElBQUksQ0FBQyxDQUFDLFdBQVc7b0JBQ2QsSUFBSSxFQUFFLENBQUE7Z0JBQ1YsQ0FBQyxDQUFDLENBQUE7WUFDVixDQUFDLENBQUMsQ0FBQTtRQUNOLENBQUMsQ0FBQyxDQUFBO1FBQ0YsUUFBUSxDQUFDLDBCQUEwQixFQUFFO1lBQ2pDLEVBQUUsQ0FBQyxvREFBb0QsRUFBRSxVQUFVLElBQUk7Z0JBQ25FLElBQUksQ0FBQyxPQUFPLENBQUMsS0FBSyxDQUFDLENBQUE7Z0JBQ25CLGlCQUFpQixDQUFDLFdBQVcsQ0FBQyxTQUFTLENBQUM7cUJBQ25DLElBQUksQ0FBQyxDQUFDLFdBQVc7b0JBQ2QsT0FBTyxDQUFDLEdBQUcsQ0FBQyxXQUFXLENBQUMsQ0FBQTtvQkFDeEIsSUFBSSxFQUFFLENBQUE7Z0JBQ1YsQ0FBQyxDQUFDLENBQUE7WUFDVixDQUFDLENBQUMsQ0FBQTtRQUNOLENBQUMsQ0FBQyxDQUFBO1FBQ0YsUUFBUSxDQUFDLGVBQWUsRUFBRTtZQUN0QixFQUFFLENBQUMsbURBQW1ELEVBQUUsVUFBVSxJQUFJO2dCQUNsRSxJQUFJLENBQUMsT0FBTyxDQUFDLEtBQUssQ0FBQyxDQUFBO2dCQUNuQixpQkFBaUIsQ0FBQyxZQUFZLENBQUMsU0FBUyxFQUFFLEdBQUcsRUFBRSxXQUFXLENBQUM7cUJBQ3RELElBQUksQ0FBQyxVQUFVLFdBQVc7b0JBQ3ZCLElBQUksRUFBRSxDQUFBO2dCQUNWLENBQUMsQ0FBQyxDQUFBO1lBQ1YsQ0FBQyxDQUFDLENBQUE7WUFDRixFQUFFLENBQUMsOENBQThDLEVBQUUsVUFBVSxJQUFJO2dCQUM3RCxJQUFJLENBQUMsT0FBTyxDQUFDLEtBQUssQ0FBQyxDQUFBO2dCQUNuQixpQkFBaUIsQ0FBQyxZQUFZLENBQUMsbUJBQW1CLEVBQUUsR0FBRyxFQUFFLFdBQVcsQ0FBQztxQkFDaEUsSUFBSSxDQUFDLFVBQVUsV0FBVztvQkFDdkIsSUFBSSxFQUFFLENBQUE7Z0JBQ1YsQ0FBQyxDQUFDLENBQUE7WUFDVixDQUFDLENBQUMsQ0FBQTtRQUNOLENBQUMsQ0FBQyxDQUFBO1FBQ0YsUUFBUSxDQUFDLFlBQVksRUFBRTtZQUNuQixFQUFFLENBQUMscUNBQXFDLEVBQUUsVUFBVSxJQUFJO2dCQUNwRCxJQUFJLENBQUMsT0FBTyxDQUFDLEtBQUssQ0FBQyxDQUFBO2dCQUNuQixpQkFBaUIsQ0FBQyxTQUFTLENBQUMsU0FBUyxFQUFFLEdBQUcsQ0FBQztxQkFDdEMsSUFBSSxDQUFDLFVBQVUsV0FBVztvQkFDdkIsT0FBTyxDQUFDLEdBQUcsQ0FBQyxXQUFXLENBQUMsQ0FBQTtvQkFDeEIsSUFBSSxFQUFFLENBQUE7Z0JBQ1YsQ0FBQyxDQUFDLENBQUE7WUFDVixDQUFDLENBQUMsQ0FBQTtRQUNOLENBQUMsQ0FBQyxDQUFBO1FBQ0YsUUFBUSxDQUFDLGVBQWUsRUFBRTtZQUN0QixFQUFFLENBQUMsd0NBQXdDLEVBQUUsVUFBVSxJQUFJO2dCQUN2RCxJQUFJLENBQUMsT0FBTyxDQUFDLEtBQUssQ0FBQyxDQUFBO2dCQUNuQixpQkFBaUIsQ0FBQyxZQUFZLENBQUMsU0FBUyxFQUFFLEdBQUcsQ0FBQztxQkFDekMsSUFBSSxDQUFDLFVBQVUsV0FBVztvQkFDdkIsT0FBTyxDQUFDLEdBQUcsQ0FBQyxXQUFXLENBQUMsQ0FBQTtvQkFDeEIsSUFBSSxFQUFFLENBQUE7Z0JBQ1YsQ0FBQyxDQUFDLENBQUE7WUFDVixDQUFDLENBQUMsQ0FBQTtZQUNGLEVBQUUsQ0FBQyxrREFBa0QsRUFBRSxVQUFVLElBQUk7Z0JBQ2pFLElBQUksQ0FBQyxPQUFPLENBQUMsS0FBSyxDQUFDLENBQUE7Z0JBQ25CLGlCQUFpQixDQUFDLFlBQVksQ0FBQyxtQkFBbUIsRUFBRSxHQUFHLENBQUM7cUJBQ25ELElBQUksQ0FBQyxVQUFVLFdBQVc7b0JBQ3ZCLE9BQU8sQ0FBQyxHQUFHLENBQUMsV0FBVyxDQUFDLENBQUE7b0JBQ3hCLElBQUksRUFBRSxDQUFBO2dCQUNWLENBQUMsQ0FBQyxDQUFBO1lBQ1YsQ0FBQyxDQUFDLENBQUE7UUFDTixDQUFDLENBQUMsQ0FBQTtJQUNOLENBQUMsQ0FBQyxDQUFBO0FBQ04sQ0FBQyxDQUFDLENBQUEifQ==

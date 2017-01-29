@@ -137,13 +137,11 @@ export class CflareAccount {
                 console.log('rate limited! Waiting for retry!')
                 retryRequest()
             } else {
-                console.log(response.status)
-                console.log(response.messages)
-                console.log(response.errors)
+                console.log(response.statusCode)
                 done.reject(new Error('request failed'))
             }
         }
-        let retryRequest = async (delayTimeArg = 6000) => {
+        let retryRequest = async (delayTimeArg = Math.floor(Math.random() * (60000 - 8000) + 8000)) => {
             console.log(`retry started and waiting for ${delayTimeArg} ms`)
             await plugins.smartdelay.delayFor(delayTimeArg)
             if (retryCount < 10) {

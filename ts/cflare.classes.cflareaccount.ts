@@ -133,7 +133,7 @@ export class CflareAccount {
             )
             if (response.statusCode === 200) {
                 done.resolve(response.body)
-            } else if (response.statusCode === 429) {
+            } else if (response.statusCode === 429 || response.statusCode === 400) {
                 console.log('rate limited! Waiting for retry!')
                 retryRequest()
             } else {

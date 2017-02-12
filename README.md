@@ -2,18 +2,18 @@
 easy cloudflare management
 
 ## Availabililty
-[![npm](https://push.rocks/assets/repo-button-npm.svg)](https://www.npmjs.com/package/cflare)
-[![git](https://push.rocks/assets/repo-button-git.svg)](https://GitLab.com/pushrocks/cflare)
-[![git](https://push.rocks/assets/repo-button-mirror.svg)](https://github.com/pushrocks/cflare)
-[![docs](https://push.rocks/assets/repo-button-docs.svg)](https://pushrocks.gitlab.io/cflare/)
+[![npm](https://mojoio.gitlab.io/assets/repo-button-npm.svg)](https://www.npmjs.com/package/cflare)
+[![git](https://mojoio.gitlab.io/assets/repo-button-git.svg)](https://GitLab.com/mojoio/cflare)
+[![git](https://mojoio.gitlab.io/assets/repo-button-mirror.svg)](https://github.com/mojoio/cflare)
+[![docs](https://mojoio.gitlab.io/assets/repo-button-docs.svg)](https://mojoio.gitlab.io/cflare/)
 
 ## Status for master
-[![build status](https://GitLab.com/pushrocks/cflare/badges/master/build.svg)](https://GitLab.com/pushrocks/cflare/commits/master)
-[![coverage report](https://GitLab.com/pushrocks/cflare/badges/master/coverage.svg)](https://GitLab.com/pushrocks/cflare/commits/master)
+[![build status](https://GitLab.com/mojoio/cflare/badges/master/build.svg)](https://GitLab.com/mojoio/cflare/commits/master)
+[![coverage report](https://GitLab.com/mojoio/cflare/badges/master/coverage.svg)](https://GitLab.com/mojoio/cflare/commits/master)
 [![npm downloads per month](https://img.shields.io/npm/dm/cflare.svg)](https://www.npmjs.com/package/cflare)
-[![Dependency Status](https://david-dm.org/pushrocks/cflare.svg)](https://david-dm.org/pushrocks/cflare)
-[![bitHound Dependencies](https://www.bithound.io/github/pushrocks/cflare/badges/dependencies.svg)](https://www.bithound.io/github/pushrocks/cflare/master/dependencies/npm)
-[![bitHound Code](https://www.bithound.io/github/pushrocks/cflare/badges/code.svg)](https://www.bithound.io/github/pushrocks/cflare)
+[![Dependency Status](https://david-dm.org/mojoio/cflare.svg)](https://david-dm.org/mojoio/cflare)
+[![bitHound Dependencies](https://www.bithound.io/github/mojoio/cflare/badges/dependencies.svg)](https://www.bithound.io/github/mojoio/cflare/master/dependencies/npm)
+[![bitHound Code](https://www.bithound.io/github/mojoio/cflare/badges/code.svg)](https://www.bithound.io/github/mojoio/cflare)
 [![TypeScript](https://img.shields.io/badge/TypeScript-2.x-blue.svg)](https://nodejs.org/dist/latest-v6.x/docs/api/)
 [![node](https://img.shields.io/badge/node->=%206.x.x-blue.svg)](https://nodejs.org/dist/latest-v6.x/docs/api/)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
@@ -44,4 +44,8 @@ let myAsyncCflareManagement = async () => {
 
 ```
 
-[![npm](https://push.rocks/assets/repo-header.svg)](https://push.rocks)
+For further information read the linked docs at the top of this README.
+
+> MIT licensed | **&copy;** [Lossless GmbH](https://lossless.gmbh)
+
+[![repo-footer](https://mojoio.gitlab.io/assets/repo-footer.svg)](https://push.rocks)

@@ -27,7 +27,7 @@ export class CflareAccount {
     }
 
   }
-  getRecord (domainNameArg: string, typeArg: string): Promise<interfaces.ICflareRecord> {
+  getRecord (domainNameArg: string, typeArg: interfaces.TRecord): Promise<interfaces.ICflareRecord> {
     let done = plugins.q.defer()
     let result: interfaces.ICflareRecord
 
@@ -42,7 +42,7 @@ export class CflareAccount {
     return done.promise
   }
 
-  async createRecord (domainNameArg: string, typeArg: string, contentArg: string) {
+  async createRecord (domainNameArg: string, typeArg: interfaces.TRecord, contentArg: string) {
     let done = plugins.q.defer()
     let domain = new plugins.smartstring.Domain(domainNameArg)
     let domainIdArg = await this.getZoneId(domain.zoneName)
@@ -58,7 +58,7 @@ export class CflareAccount {
     return done.promise
   }
 
-  removeRecord (domainNameArg: string, typeArg: string) {
+  removeRecord (domainNameArg: string, typeArg: interfaces.TRecord) {
     let done = plugins.q.defer()
     let domain = new plugins.smartstring.Domain(domainNameArg)
     this.getRecord(domain.fullName, typeArg)

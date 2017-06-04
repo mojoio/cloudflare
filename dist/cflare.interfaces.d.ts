@@ -1,4 +1,4 @@
-export declare type TRecord = '';
+export declare type TRecord = 'A' | 'AAAA' | 'CNAME' | 'TXT' | 'SRV' | 'LOC' | 'MX' | 'NS' | 'SPF';
 export interface ICflareZone {
     'id': string;
     'name': string;

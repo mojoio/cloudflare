@@ -2,7 +2,7 @@ import { expect, tap } from 'tapbundle'
 import cflare = require('../dist/index')
 import { Qenv } from 'qenv'
 let testQenv = new Qenv(process.cwd(), process.cwd() + '/.nogit')
-console.log(testQenv.missingEnvVars)
+
 let testCflareAccount = new cflare.CflareAccount()
 testCflareAccount.auth({
   email: process.env.CF_EMAIL,

@@ -23,6 +23,7 @@ export declare class CflareAccount {
      * @param domainName
      */
     listZones(domainName?: string): Promise<interfaces.ICflareZone[]>;
+    purgeZone(domainName: string): Promise<void>;
     request(methodArg: string, routeArg: string, dataArg?: {}): Promise<{}>;
     private authCheck();
 }

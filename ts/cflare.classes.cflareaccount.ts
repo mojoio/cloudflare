@@ -15,7 +15,8 @@ export class CflareAccount {
   }
 
   async getZoneId (domainName: string) {
-    let zoneArray = await this.listZones(domainName)
+    let domain = new plugins.smartstring.Domain(domainName)
+    let zoneArray = await this.listZones(domain.zoneName)
     let filteredResponse = zoneArray.filter((zoneArg) => {
       return zoneArg.name === domainName
     })
@@ -99,11 +100,11 @@ export class CflareAccount {
    * @param domainName
    */
   async listZones (domainName?: string): Promise<interfaces.ICflareZone[]> { // TODO: handle pagination
-    let requestRoute = '/zones?per_page=50'
+    let requestRoute = `/zones?per_page=50`
 
     // may be optionally filtered by domain name
     if (domainName) {
-      requestRoute = requestRoute + '&name=' + domainName
+      requestRoute = `${requestRoute}&name=${domainName}`
     }
 
     let response: any = await this.request('GET', requestRoute)
@@ -111,17 +112,28 @@ export class CflareAccount {
     return result
   }
 
+  async purgeZone (domainName: string) {
+    let domain = new plugins.smartstring.Domain(domainName)
+    let domainId = await this.getZoneId(domain.zoneName)
+    let requestUrl = `/zones/${domainId}/purge_cache`
+    let payload = {
+      purge_everything: true
+    }
+    let respone = await this.request('DELETE', requestUrl, payload)
+  }
+
   request (methodArg: string, routeArg: string, dataArg = {}) {
     let done = plugins.q.defer()
-    let jsonArg: string = JSON.stringify(dataArg)
+    let jsonStringArg: string = JSON.stringify(dataArg)
     let options: plugins.smartrequest.ISmartRequestOptions = {
       method: methodArg,
       headers: {
         'Content-Type': 'application/json',
         'X-Auth-Email': this.authEmail,
-        'X-Auth-Key': this.authKey
+        'X-Auth-Key': this.authKey,
+        'Content-Length': Buffer.byteLength(jsonStringArg)
       },
-      requestBody: jsonArg
+      requestBody: jsonStringArg
     }
     // console.log(options);
     let retryCount = 0
@@ -137,7 +149,8 @@ export class CflareAccount {
         console.log('rate limited! Waiting for retry!')
         retryRequest()
       } else if (response.statusCode === 400) {
-        console.log('bad request! Going to retry!')
+        console.log(`bad request for route ${routeArg}! Going to retry!`)
+        retryRequest()
       } else {
         console.log(response.statusCode)
         done.reject(new Error('request failed'))

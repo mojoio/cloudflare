@@ -25,9 +25,9 @@
     "beautylog": "^6.1.10",
     "smartdelay": "^1.0.3",
     "smartq": "^1.1.1",
-    "smartrequest": "^1.0.4",
+    "smartrequest": "^1.0.6",
     "smartstring": "^2.0.24",
-    "typings-global": "^1.0.16"
+    "typings-global": "^1.0.17"
   },
   "devDependencies": {
     "qenv": "^1.1.7",

@@ -1,5 +1,6 @@
 import 'typings-global';
 import * as interfaces from './cflare.interfaces';
+import { TDnsRecord } from 'tsclass';
 export declare class CflareAccount {
     private authEmail;
     private authKey;
@@ -9,9 +10,9 @@ export declare class CflareAccount {
         key: string;
     }): void;
     getZoneId(domainName: string): Promise<string>;
-    getRecord(domainNameArg: string, typeArg: interfaces.TRecord): Promise<interfaces.ICflareRecord>;
-    createRecord(domainNameArg: string, typeArg: interfaces.TRecord, contentArg: string): Promise<{}>;
-    removeRecord(domainNameArg: string, typeArg: interfaces.TRecord): Promise<{}>;
+    getRecord(domainNameArg: string, typeArg: TDnsRecord): Promise<interfaces.ICflareRecord>;
+    createRecord(domainNameArg: string, typeArg: TDnsRecord, contentArg: string): Promise<{}>;
+    removeRecord(domainNameArg: string, typeArg: TDnsRecord): Promise<{}>;
     updateRecord(domainNameArg: string, typeArg: string, valueArg: any): Promise<{}>;
     /**
      * list all records of a specified domain name

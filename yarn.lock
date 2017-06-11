@@ -606,6 +606,10 @@ through2@^2.0.1:
     readable-stream "^2.1.5"
     xtend "~4.0.1"
 
+tsclass@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/tsclass/-/tsclass-1.0.12.tgz#350c4e567ca7ae7fa426b95bbb77ec478ec0edef"
+
 type-detect@0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-0.1.1.tgz#0ba5ec2a885640e470ea4e8505971900dac58822"

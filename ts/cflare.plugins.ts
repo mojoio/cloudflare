@@ -1,6 +1,16 @@
 import 'typings-global'
-export let beautylog = require('beautylog')
-export import q = require('smartq')
-export import smartrequest = require('smartrequest')
-export import smartstring = require('smartstring')
-export import smartdelay = require('smartdelay')
+import * as beautylog from 'beautylog'
+import * as q from 'smartq'
+import * as smartdelay from 'smartdelay'
+import * as smartrequest from 'smartrequest'
+import * as smartstring from 'smartstring'
+import * as tsclass from 'tsclass'
+
+export {
+  beautylog,
+  q,
+  smartdelay,
+  smartrequest,
+  smartstring,
+  tsclass
+}

@@ -1,7 +1,5 @@
 import * as plugins from './cflare.plugins'
 
-export type TRecord = 'A' | 'AAAA' | 'CNAME' | 'TXT' | 'SRV' | 'LOC' | 'MX' | 'NS' | 'SPF'
-
 export interface ICflareZone {
   'id': string
   'name': string

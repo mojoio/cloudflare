@@ -1,11 +1,13 @@
 {
-  "name": "cflare",
+  "name": "@mojoio/cloudflare",
   "version": "1.0.5",
+  "private": false,
   "description": "easy cloudflare management",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "test": "(npmts)"
+    "test": "(tstest test/)",
+    "build": "(tsbuild)"
   },
   "repository": {
     "type": "git",
@@ -22,16 +24,19 @@
   },
   "homepage": "https://gitlab.com/pushrocks/cflare#readme",
   "dependencies": {
-    "beautylog": "^6.1.10",
-    "smartdelay": "^1.0.3",
-    "smartq": "^1.1.1",
-    "smartrequest": "^1.0.6",
-    "smartstring": "^2.0.24",
-    "tsclass": "^1.0.12",
-    "typings-global": "^1.0.17"
+    "@pushrocks/smartdelay": "^2.0.2",
+    "@pushrocks/smartlog": "^2.0.1",
+    "@pushrocks/smartpromise": "^2.0.5",
+    "@pushrocks/smartrequest": "^1.1.14",
+    "@pushrocks/smartstring": "^3.0.4",
+    "@tsclass/tsclass": "^1.0.48"
   },
   "devDependencies": {
-    "qenv": "^1.1.7",
-    "tapbundle": "^1.0.14"
+    "@gitzone/tsbuild": "^2.0.22",
+    "@gitzone/tsrun": "^1.1.12",
+    "@gitzone/tstest": "^1.0.15",
+    "@pushrocks/qenv": "^2.0.2",
+    "@pushrocks/tapbundle": "^3.0.5",
+    "@types/node": "^10.5.8"
   }
 }

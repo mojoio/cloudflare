@@ -1,13 +1,16 @@
 # cflare
+
 easy cloudflare management
 
 ## Availabililty
+
 [![npm](https://mojoio.gitlab.io/assets/repo-button-npm.svg)](https://www.npmjs.com/package/cflare)
 [![git](https://mojoio.gitlab.io/assets/repo-button-git.svg)](https://GitLab.com/mojoio/cflare)
 [![git](https://mojoio.gitlab.io/assets/repo-button-mirror.svg)](https://github.com/mojoio/cflare)
 [![docs](https://mojoio.gitlab.io/assets/repo-button-docs.svg)](https://mojoio.gitlab.io/cflare/)
 
 ## Status for master
+
 [![build status](https://GitLab.com/mojoio/cflare/badges/master/build.svg)](https://GitLab.com/mojoio/cflare/commits/master)
 [![coverage report](https://GitLab.com/mojoio/cflare/badges/master/coverage.svg)](https://GitLab.com/mojoio/cflare/commits/master)
 [![npm downloads per month](https://img.shields.io/npm/dm/cflare.svg)](https://www.npmjs.com/package/cflare)
@@ -19,6 +22,7 @@ easy cloudflare management
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 ## Usage
+
 Use TypeScript for best in class instellisense.
 
 ```javascript
@@ -41,7 +45,6 @@ let myAsyncCflareManagement = async () => {
     myCflareAccount.createRecord(...)
     myCflareAccount.deleteRecord(...)
 }
-
 ```
 
 For further information read the linked docs at the top of this README.

@@ -1,2 +1,1 @@
-import 'typings-global'
-export {CflareAccount} from "./cflare.classes.cflareaccount";
+export { CloudflareAccount } from './cloudflare.classes.account';

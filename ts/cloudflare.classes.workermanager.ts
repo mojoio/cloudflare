@@ -3,7 +3,7 @@ import { CloudflareAccount } from './cloudflare.classes.account';
 import { Worker } from './cloudflare.classes.worker';
 
 export class WorkerManager {
-  private cfAccount: CloudflareAccount;
+  public cfAccount: CloudflareAccount;
 
   constructor(cfAccountArg: CloudflareAccount) {
     this.cfAccount = cfAccountArg;

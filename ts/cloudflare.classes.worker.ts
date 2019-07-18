@@ -19,6 +19,13 @@ export class Worker {
   constructor(workerManagerArg: WorkerManager) {
     this.workerManager = workerManagerArg;
   }
+
+  /**
+   * gets all routes for a worker
+   */
+  public async getRoutes(){
+    const zones = await this.workerManager.cfAccount.listZones();
+  }
   
   public setRoutes(routeArray: string[]) {
 

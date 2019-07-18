@@ -1,15 +1,23 @@
+// tslint:disable-next-line: no-implicit-dependencies
 import { expect, tap } from '@pushrocks/tapbundle';
-import cloudflare = require('../ts/index');
+// tslint:disable-next-line: no-implicit-dependencies
 import { Qenv } from '@pushrocks/qenv';
+
+import cloudflare = require('../ts/index');
+
 const testQenv = new Qenv(process.cwd(), process.cwd() + '/.nogit');
 
-const testCloudflareAccount = new cloudflare.CloudflareAccount();
-testCloudflareAccount.auth({
-  email: testQenv.getEnvVarOnDemand('CF_EMAIL'),
-  key: testQenv.getEnvVarOnDemand('CF_KEY')
+const randomPrefix = Math.floor(Math.random() * 2000);
+let testCloudflareAccount: cloudflare.CloudflareAccount;
+
+tap.test('should create a valid instance of CloudflareAccount', async () => {
+  testCloudflareAccount = new cloudflare.CloudflareAccount({
+    email: testQenv.getEnvVarOnDemand('CF_EMAIL'),
+    key: testQenv.getEnvVarOnDemand('CF_KEY')
+  });
 });
 
-const randomPrefix = Math.floor(Math.random() * 2000);
+
 
 tap.skip.test('.listZones() -> should display an entire account', async tools => {
   tools.timeout(600000);
@@ -58,6 +66,15 @@ tap.test('should remove a subdomain record from Cloudflare', async tools => {
 
 tap.test('.purge(some.domain) -> should purge everything', async () => {
   await testCloudflareAccount.purgeZone('bleu.de');
+});
+
+// WORKERS
+tap.test('should create a worker', async () => {
+  await testCloudflareAccount.workerManager.createWorker('myawesomescript', `addEventListener('fetch', event => { event.respondWith(fetch(event.request)) })`);
+});
+
+tap.test('should get workers', async () => {
+  await testCloudflareAccount.workerManager.listWorkers();
 });
 
 tap.start();

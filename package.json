@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@gitzone/tsbuild": "^2.1.11",
-    "@gitzone/tsrun": "^1.2.6",
+    "@gitzone/tsrun": "^1.2.8",
     "@gitzone/tstest": "^1.0.24",
     "@pushrocks/qenv": "^4.0.0",
     "@pushrocks/tapbundle": "^3.0.11",

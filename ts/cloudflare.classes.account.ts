@@ -9,17 +9,26 @@ import { ZoneManager } from './cloudflare.classes.zonemanager';
 export class CloudflareAccount {
   private authEmail: string;
   private authKey: string;
+  private accountIdentifier: string;
 
   public workerManager = new WorkerManager(this);
   public zoneManager = new ZoneManager(this);
 
-  constructor() {
-    // Nothing here
-  }
-
-  public auth(optionsArg: { email: string; key: string }) {
+  /**
+   * constructor sets auth information on the CloudflareAccountInstance
+   * @param optionsArg
+   */
+  constructor(optionsArg: { email: string; key: string }) {
     this.authEmail = optionsArg.email;
     this.authKey = optionsArg.key;
+  }
+
+  public async getAccountIdentifier() {
+    const route = `/accounts?page=1&per_page=20&direction=desc`;
+    const response: any = await this.request('GET', route);
+    this.accountIdentifier = response.result[0].id;
+    console.log('Account identifier is: ' + this.accountIdentifier);
+    return this.accountIdentifier;
   }
 
   /**
@@ -80,24 +89,30 @@ export class CloudflareAccount {
     return response;
   }
 
-  public removeRecord(domainNameArg: string, typeArg: TDnsRecord) {
-    const done = plugins.smartpromise.defer();
+  /**
+   * removes a record from Cloudflare
+   * @param domainNameArg
+   * @param typeArg 
+   */
+  public async removeRecord(domainNameArg: string, typeArg: TDnsRecord): Promise<any> {
     const domain = new plugins.smartstring.Domain(domainNameArg);
-    this.getRecord(domain.fullName, typeArg).then(responseArg => {
-      if (responseArg) {
-        const requestRoute: string =
-          '/zones/' + responseArg.zone_id + '/dns_records/' + responseArg.id;
-        this.request('DELETE', requestRoute).then(responseArg => {
-          done.resolve(responseArg);
-        });
-      } else {
-        done.reject();
-      }
-    });
-    return done.promise;
+    const cflareRecord = await this.getRecord(domain.fullName, typeArg);
+    if (cflareRecord) {
+      const requestRoute: string = `/zones/${cflareRecord.zone_id}/dns_records/${cflareRecord.id}`;
+      return await this.request('DELETE', requestRoute);
+    } else {
+      throw new Error(`could not remove record for ${domainNameArg} with type ${typeArg}`);
+    }
   }
 
+  /**
+   * updates a record
+   * @param domainNameArg
+   * @param typeArg
+   * @param valueArg
+   */
   public updateRecord(domainNameArg: string, typeArg: string, valueArg) {
+    // TODO: implement
     const done = plugins.smartpromise.defer();
     const domain = new plugins.smartstring.Domain(domainNameArg);
     return done.promise;
@@ -146,7 +161,7 @@ export class CloudflareAccount {
     const respone = await this.request('DELETE', requestUrl, payload);
   }
 
-  public request(methodArg: string, routeArg: string, dataArg = {}) {
+  public request(methodArg: string, routeArg: string, dataArg: any = {}, requestHeadersArg = {}): Promise<any> {
     const done = plugins.smartpromise.defer();
     const options: plugins.smartrequest.ISmartRequestOptions = {
       method: methodArg,
@@ -154,10 +169,13 @@ export class CloudflareAccount {
         'Content-Type': 'application/json',
         'X-Auth-Email': this.authEmail,
         'X-Auth-Key': this.authKey,
-        'Content-Length': Buffer.byteLength(JSON.stringify(dataArg))
+        'Content-Length': Buffer.byteLength(JSON.stringify(dataArg)),
+        ...requestHeadersArg
       },
-      requestBody: dataArg
+      requestBody: dataArg,
     };
+
+    // console.log(options);
 
     let retryCount = 0; // count the amount of retries
 
@@ -173,7 +191,7 @@ export class CloudflareAccount {
         retryRequest();
       } else if (response.statusCode === 400) {
         console.log(`bad request for route ${routeArg}! Going to retry!`);
-        retryRequest();
+        console.log(response.body);
       } else {
         console.log(response.statusCode);
         done.reject(new Error('request failed'));

@@ -25,6 +25,7 @@ export class Worker {
    */
   public async getRoutes(){
     const zones = await this.workerManager.cfAccount.listZones();
+    console.log(zones);
   }
   
   public setRoutes(routeArray: string[]) {

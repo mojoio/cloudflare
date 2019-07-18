@@ -24,19 +24,32 @@
   },
   "homepage": "https://gitlab.com/pushrocks/cflare#readme",
   "dependencies": {
-    "@pushrocks/smartdelay": "^2.0.2",
-    "@pushrocks/smartlog": "^2.0.1",
-    "@pushrocks/smartpromise": "^2.0.5",
-    "@pushrocks/smartrequest": "^1.1.14",
-    "@pushrocks/smartstring": "^3.0.4",
-    "@tsclass/tsclass": "^1.0.48"
+    "@pushrocks/smartdelay": "^2.0.3",
+    "@pushrocks/smartlog": "^2.0.19",
+    "@pushrocks/smartpromise": "^3.0.2",
+    "@pushrocks/smartrequest": "^1.1.16",
+    "@pushrocks/smartstring": "^3.0.10",
+    "@tsclass/tsclass": "^2.0.1"
   },
   "devDependencies": {
-    "@gitzone/tsbuild": "^2.0.22",
-    "@gitzone/tsrun": "^1.1.12",
-    "@gitzone/tstest": "^1.0.15",
-    "@pushrocks/qenv": "^2.0.2",
-    "@pushrocks/tapbundle": "^3.0.5",
-    "@types/node": "^10.5.8"
-  }
+    "@gitzone/tsbuild": "^2.1.11",
+    "@gitzone/tsrun": "^1.2.6",
+    "@gitzone/tstest": "^1.0.24",
+    "@pushrocks/qenv": "^4.0.0",
+    "@pushrocks/tapbundle": "^3.0.11",
+    "@types/node": "^12.6.6",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0"
+  },
+  "files": [
+    "ts/*",
+    "ts_web/*",
+    "dist/*",
+    "dist_web/*",
+    "dist_ts_web/*",
+    "assets/*",
+    "cli.js",
+    "npmextra.json",
+    "readme.md"
+  ]
 }

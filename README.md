@@ -1,25 +1,20 @@
-# cflare
-
+# @mojoio/cloudflare
 easy cloudflare management
 
-## Availabililty
-
-[![npm](https://mojoio.gitlab.io/assets/repo-button-npm.svg)](https://www.npmjs.com/package/cflare)
-[![git](https://mojoio.gitlab.io/assets/repo-button-git.svg)](https://GitLab.com/mojoio/cflare)
-[![git](https://mojoio.gitlab.io/assets/repo-button-mirror.svg)](https://github.com/mojoio/cflare)
-[![docs](https://mojoio.gitlab.io/assets/repo-button-docs.svg)](https://mojoio.gitlab.io/cflare/)
+## Availabililty and Links
+* [npmjs.org (npm package)](https://www.npmjs.com/package/@mojoio/cloudflare)
+* [gitlab.com (source)](https://gitlab.com/mojoio/cloudflare)
+* [github.com (source mirror)](https://github.com/mojoio/cloudflare)
+* [docs (typedoc)](https://mojoio.gitlab.io/cloudflare/)
 
 ## Status for master
-
-[![build status](https://GitLab.com/mojoio/cflare/badges/master/build.svg)](https://GitLab.com/mojoio/cflare/commits/master)
-[![coverage report](https://GitLab.com/mojoio/cflare/badges/master/coverage.svg)](https://GitLab.com/mojoio/cflare/commits/master)
-[![npm downloads per month](https://img.shields.io/npm/dm/cflare.svg)](https://www.npmjs.com/package/cflare)
-[![Dependency Status](https://david-dm.org/mojoio/cflare.svg)](https://david-dm.org/mojoio/cflare)
-[![bitHound Dependencies](https://www.bithound.io/github/mojoio/cflare/badges/dependencies.svg)](https://www.bithound.io/github/mojoio/cflare/master/dependencies/npm)
-[![bitHound Code](https://www.bithound.io/github/mojoio/cflare/badges/code.svg)](https://www.bithound.io/github/mojoio/cflare)
-[![TypeScript](https://img.shields.io/badge/TypeScript-2.x-blue.svg)](https://nodejs.org/dist/latest-v6.x/docs/api/)
-[![node](https://img.shields.io/badge/node->=%206.x.x-blue.svg)](https://nodejs.org/dist/latest-v6.x/docs/api/)
-[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+[![build status](https://gitlab.com/mojoio/cloudflare/badges/master/build.svg)](https://gitlab.com/mojoio/cloudflare/commits/master)
+[![coverage report](https://gitlab.com/mojoio/cloudflare/badges/master/coverage.svg)](https://gitlab.com/mojoio/cloudflare/commits/master)
+[![npm downloads per month](https://img.shields.io/npm/dm/@mojoio/cloudflare.svg)](https://www.npmjs.com/package/@mojoio/cloudflare)
+[![Known Vulnerabilities](https://snyk.io/test/npm/@mojoio/cloudflare/badge.svg)](https://snyk.io/test/npm/@mojoio/cloudflare)
+[![TypeScript](https://img.shields.io/badge/TypeScript->=%203.x-blue.svg)](https://nodejs.org/dist/latest-v10.x/docs/api/)
+[![node](https://img.shields.io/badge/node->=%2010.x.x-blue.svg)](https://nodejs.org/dist/latest-v10.x/docs/api/)
+[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-prettier-ff69b4.svg)](https://prettier.io/)
 
 ## Usage
 
@@ -47,8 +42,9 @@ let myAsyncCflareManagement = async () => {
 }
 ```
 
-For further information read the linked docs at the top of this README.
+For further information read the linked docs at the top of this readme.
 
 > MIT licensed | **&copy;** [Lossless GmbH](https://lossless.gmbh)
+| By using this npm module you agree to our [privacy policy](https://lossless.gmbH/privacy.html)
 
-[![repo-footer](https://mojoio.gitlab.io/assets/repo-footer.svg)](https://mojo.io)
+[![repo-footer](https://mojoio.gitlab.io/assets/repo-footer.svg)](https://maintainedby.lossless.com)

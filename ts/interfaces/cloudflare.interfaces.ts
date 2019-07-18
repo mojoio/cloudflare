@@ -1,4 +1,4 @@
-import * as plugins from './cloudflare.plugins';
+import * as plugins from '../cloudflare.plugins';
 
 export interface ICflareZone {
   id: string;

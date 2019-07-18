@@ -1,19 +1,19 @@
 import { expect, tap } from '@pushrocks/tapbundle';
 import cloudflare = require('../ts/index');
 import { Qenv } from '@pushrocks/qenv';
-let testQenv = new Qenv(process.cwd(), process.cwd() + '/.nogit');
+const testQenv = new Qenv(process.cwd(), process.cwd() + '/.nogit');
 
-let testCloudflareAccount = new cloudflare.CloudflareAccount();
+const testCloudflareAccount = new cloudflare.CloudflareAccount();
 testCloudflareAccount.auth({
-  email: process.env.CF_EMAIL,
-  key: process.env.CF_KEY
+  email: testQenv.getEnvVarOnDemand('CF_EMAIL'),
+  key: testQenv.getEnvVarOnDemand('CF_KEY')
 });
 
-let randomPrefix = Math.floor(Math.random() * 2000);
+const randomPrefix = Math.floor(Math.random() * 2000);
 
 tap.skip.test('.listZones() -> should display an entire account', async tools => {
   tools.timeout(600000);
-  let result = await testCloudflareAccount.listZones();
+  const result = await testCloudflareAccount.listZones();
   console.log(result);
 });
 
@@ -42,7 +42,7 @@ tap.test('should create a valid record for a subdomain', async tools => {
 
 tap.test('should get a record from Cloudflare', async tools => {
   tools.timeout(600000);
-  await testCloudflareAccount.getRecord('bleu.de', 'A').then(function(responseArg) {
+  await testCloudflareAccount.getRecord(`${randomPrefix}subdomain.bleu.de`, 'A').then(responseArg => {
     console.log(responseArg);
   });
 });

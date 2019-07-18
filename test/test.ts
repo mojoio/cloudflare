@@ -70,11 +70,19 @@ tap.test('.purge(some.domain) -> should purge everything', async () => {
 
 // WORKERS
 tap.test('should create a worker', async () => {
-  await testCloudflareAccount.workerManager.createWorker('myawesomescript', `addEventListener('fetch', event => { event.respondWith(fetch(event.request)) })`);
+  const worker = await testCloudflareAccount.workerManager.createWorker('myawesomescript', `addEventListener('fetch', event => { event.respondWith(fetch(event.request)) })`);
+  await worker.setRoutes([
+    {
+      zoneName: 'bleu.de',
+      pattern: 'https://*bleu.de/hello'
+    }
+  ]);
+  console.log(worker);
 });
 
 tap.test('should get workers', async () => {
-  await testCloudflareAccount.workerManager.listWorkers();
+  const workerArray = await testCloudflareAccount.workerManager.listWorkers();
+  console.log(workerArray);
 });
 
 tap.start();

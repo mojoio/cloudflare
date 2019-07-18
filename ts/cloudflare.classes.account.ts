@@ -1,5 +1,5 @@
 import plugins = require('./cloudflare.plugins');
-import * as interfaces from './interfaces/cloudflare.interfaces';
+import * as interfaces from './interfaces';
 
 // interfaces
 import { TDnsRecord } from '@tsclass/tsclass';
@@ -24,10 +24,12 @@ export class CloudflareAccount {
   }
 
   public async getAccountIdentifier() {
-    const route = `/accounts?page=1&per_page=20&direction=desc`;
-    const response: any = await this.request('GET', route);
-    this.accountIdentifier = response.result[0].id;
-    console.log('Account identifier is: ' + this.accountIdentifier);
+    if (!this.accountIdentifier) {
+      const route = `/accounts?page=1&per_page=20&direction=desc`;
+      const response: any = await this.request('GET', route);
+      this.accountIdentifier = response.result[0].id;
+      // console.log('Account identifier is: ' + this.accountIdentifier);
+    }
     return this.accountIdentifier;
   }
 
@@ -92,7 +94,7 @@ export class CloudflareAccount {
   /**
    * removes a record from Cloudflare
    * @param domainNameArg
-   * @param typeArg 
+   * @param typeArg
    */
   public async removeRecord(domainNameArg: string, typeArg: TDnsRecord): Promise<any> {
     const domain = new plugins.smartstring.Domain(domainNameArg);
@@ -161,7 +163,12 @@ export class CloudflareAccount {
     const respone = await this.request('DELETE', requestUrl, payload);
   }
 
-  public request(methodArg: string, routeArg: string, dataArg: any = {}, requestHeadersArg = {}): Promise<any> {
+  public request(
+    methodArg: string,
+    routeArg: string,
+    dataArg: any = {},
+    requestHeadersArg = {}
+  ): Promise<any> {
     const done = plugins.smartpromise.defer();
     const options: plugins.smartrequest.ISmartRequestOptions = {
       method: methodArg,
@@ -172,7 +179,7 @@ export class CloudflareAccount {
         'Content-Length': Buffer.byteLength(JSON.stringify(dataArg)),
         ...requestHeadersArg
       },
-      requestBody: dataArg,
+      requestBody: dataArg
     };
 
     // console.log(options);

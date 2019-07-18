@@ -1,5 +1,3 @@
-import * as plugins from '../cloudflare.plugins';
-
 export interface ICflareZone {
   id: string;
   name: string;
@@ -40,20 +38,4 @@ export interface ICflareZone {
   paused: boolean;
   type: string;
   checked_on: string;
-}
-
-export interface ICflareRecord {
-  id: string;
-  type: string;
-  name: string;
-  content: string;
-  proxiable: boolean;
-  proxied: boolean;
-  ttl: number;
-  locked: boolean;
-  zone_id: string;
-  zone_name: string;
-  created_on: string;
-  modified_on: string;
-  data: any;
 }

@@ -1,6 +1,6 @@
 import * as plugins from './cloudflare.plugins';
 import { CloudflareAccount } from './cloudflare.classes.account';
-import { Worker } from './cloudflare.classes.worker';
+import { CloudflareWorker } from './cloudflare.classes.worker';
 
 export class WorkerManager {
   public cfAccount: CloudflareAccount;
@@ -9,14 +9,14 @@ export class WorkerManager {
     this.cfAccount = cfAccountArg;
   }
 
-  public async createWorker(workerName: string, workerScript: string): Promise<Worker> {
+  public async createWorker(workerName: string, workerScript: string): Promise<CloudflareWorker> {
     const accountIdentifier = await this.cfAccount.getAccountIdentifier();
     const route = `/accounts/${accountIdentifier}/workers/scripts/${workerName}`;
     const responseBody = await this.cfAccount.request('PUT', route, workerScript, {
       'Content-Type': 'application/javascript',
       'Content-Length': Buffer.byteLength(workerScript)
     });
-    return Worker.fromApiObject(this, responseBody);
+    return CloudflareWorker.fromApiObject(this, responseBody);
   }
 
   /**

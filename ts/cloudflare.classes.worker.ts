@@ -6,10 +6,10 @@ export interface IWorkerRoute extends interfaces.ICflareWorkerRoute {
   zoneName: string;
 }
 
-export class Worker {
+export class CloudflareWorker {
   // STATIC
-  public static async fromApiObject(workerManager: WorkerManager, apiObject): Promise<Worker> {
-    const newWorker = new Worker(workerManager);
+  public static async fromApiObject(workerManager: WorkerManager, apiObject): Promise<CloudflareWorker> {
+    const newWorker = new CloudflareWorker(workerManager);
     Object.assign(newWorker, apiObject.result);
     await newWorker.getRoutes();
     return newWorker;

@@ -22,12 +22,14 @@ export class CloudflareAccount {
     this.authKey = optionsArg.key;
   }
 
+  /**
+   * gets you the account identifier
+   */
   public async getAccountIdentifier() {
     if (!this.accountIdentifier) {
       const route = `/accounts?page=1&per_page=20&direction=desc`;
       const response: any = await this.request('GET', route);
       this.accountIdentifier = response.result[0].id;
-      // console.log('Account identifier is: ' + this.accountIdentifier);
     }
     return this.accountIdentifier;
   }
@@ -38,7 +40,7 @@ export class CloudflareAccount {
    */
   public async getZoneId(domainName: string) {
     const domain = new plugins.smartstring.Domain(domainName);
-    const zoneArray = await this.listZones(domain.zoneName);
+    const zoneArray = await this.convenience.listZones(domain.zoneName);
     const filteredResponse = zoneArray.filter(zoneArg => {
       return zoneArg.name === domainName;
     });
@@ -53,117 +55,117 @@ export class CloudflareAccount {
     }
   }
 
-  /**
-   * gets a record
-   * @param domainNameArg
-   * @param typeArg
-   */
-  public async getRecord(
-    domainNameArg: string,
-    typeArg: plugins.tsclass.network.TDnsRecord
-  ): Promise<interfaces.ICflareRecord> {
-    const domain = new plugins.smartstring.Domain(domainNameArg);
-    const recordArrayArg = await this.listRecords(domain.zoneName);
-    const filteredResponse = recordArrayArg.filter(recordArg => {
-      return recordArg.type === typeArg && recordArg.name === domainNameArg;
-    });
-    return filteredResponse[0];
-  }
+  public convenience = {
+    /**
+     * gets a record
+     * @param domainNameArg
+     * @param typeArg
+     */
+    getRecord: async (
+      domainNameArg: string,
+      typeArg: plugins.tsclass.network.TDnsRecord
+    ): Promise<interfaces.ICflareRecord> => {
+      const domain = new plugins.smartstring.Domain(domainNameArg);
+      const recordArrayArg = await this.convenience.listRecords(domain.zoneName);
+      const filteredResponse = recordArrayArg.filter(recordArg => {
+        return recordArg.type === typeArg && recordArg.name === domainNameArg;
+      });
+      return filteredResponse[0];
+    },
+    /**
+     * creates a record
+     */
+    createRecord: async (
+      domainNameArg: string,
+      typeArg: plugins.tsclass.network.TDnsRecord,
+      contentArg: string
+    ): Promise<any> => {
+      const domain = new plugins.smartstring.Domain(domainNameArg);
+      const domainIdArg = await this.getZoneId(domain.zoneName);
+      const dataObject = {
+        name: domain.fullName,
+        type: typeArg,
+        content: contentArg
+      };
+      const response = await this.request(
+        'POST',
+        '/zones/' + domainIdArg + '/dns_records',
+        dataObject
+      );
+      return response;
+    },
+    /**
+     * removes a record from Cloudflare
+     * @param domainNameArg
+     * @param typeArg
+     */
+    removeRecord: async (
+      domainNameArg: string,
+      typeArg: plugins.tsclass.network.TDnsRecord
+    ): Promise<any> => {
+      const domain = new plugins.smartstring.Domain(domainNameArg);
+      const cflareRecord = await this.convenience.getRecord(domain.fullName, typeArg);
+      if (cflareRecord) {
+        const requestRoute: string = `/zones/${cflareRecord.zone_id}/dns_records/${cflareRecord.id}`;
+        return await this.request('DELETE', requestRoute);
+      } else {
+        throw new Error(`could not remove record for ${domainNameArg} with type ${typeArg}`);
+      }
+    },
+    /**
+     * updates a record
+     * @param domainNameArg
+     * @param typeArg
+     * @param valueArg
+     */
+    updateRecord: async (domainNameArg: string, typeArg: string, valueArg) => {
+      // TODO: implement
+      const domain = new plugins.smartstring.Domain(domainNameArg);
+    },
+    /**
+     * list all records of a specified domain name
+     * @param domainNameArg - the domain name that you want to get the records from
+     */
+    listRecords: async (domainNameArg: string): Promise<interfaces.ICflareRecord[]> => {
+      const domain = new plugins.smartstring.Domain(domainNameArg);
+      const domainId = await this.getZoneId(domain.zoneName);
+      const responseArg: any = await this.request(
+        'GET',
+        '/zones/' + domainId + '/dns_records?per_page=100'
+      );
+      const result: interfaces.ICflareRecord[] = responseArg.result;
+      return result;
+    },
+    /**
+     * list all zones in the associated authenticated account
+     * @param domainName
+     */
+    listZones: async (domainName?: string): Promise<interfaces.ICflareZone[]> => {
+      // TODO: handle pagination
+      let requestRoute = `/zones?per_page=50`;
 
-  public async createRecord(
-    domainNameArg: string,
-    typeArg: plugins.tsclass.network.TDnsRecord,
-    contentArg: string
-  ): Promise<any> {
-    const domain = new plugins.smartstring.Domain(domainNameArg);
-    const domainIdArg = await this.getZoneId(domain.zoneName);
-    const dataObject = {
-      name: domain.fullName,
-      type: typeArg,
-      content: contentArg
-    };
-    const response = await this.request(
-      'POST',
-      '/zones/' + domainIdArg + '/dns_records',
-      dataObject
-    );
-    return response;
-  }
+      // may be optionally filtered by domain name
+      if (domainName) {
+        requestRoute = `${requestRoute}&name=${domainName}`;
+      }
 
-  /**
-   * removes a record from Cloudflare
-   * @param domainNameArg
-   * @param typeArg
-   */
-  public async removeRecord(
-    domainNameArg: string,
-    typeArg: plugins.tsclass.network.TDnsRecord
-  ): Promise<any> {
-    const domain = new plugins.smartstring.Domain(domainNameArg);
-    const cflareRecord = await this.getRecord(domain.fullName, typeArg);
-    if (cflareRecord) {
-      const requestRoute: string = `/zones/${cflareRecord.zone_id}/dns_records/${cflareRecord.id}`;
-      return await this.request('DELETE', requestRoute);
-    } else {
-      throw new Error(`could not remove record for ${domainNameArg} with type ${typeArg}`);
+      const response: any = await this.request('GET', requestRoute);
+      const result = response.result;
+      return result;
+    },
+    /**
+     * purges a zone
+     */
+    purgeZone: async (domainName: string): Promise<void> => {
+      const domain = new plugins.smartstring.Domain(domainName);
+      const domainId = await this.getZoneId(domain.zoneName);
+      const requestUrl = `/zones/${domainId}/purge_cache`;
+      const payload = {
+        purge_everything: true
+      };
+      const respone = await this.request('DELETE', requestUrl, payload);
     }
-  }
-
-  /**
-   * updates a record
-   * @param domainNameArg
-   * @param typeArg
-   * @param valueArg
-   */
-  public updateRecord(domainNameArg: string, typeArg: string, valueArg) {
-    // TODO: implement
-    const done = plugins.smartpromise.defer();
-    const domain = new plugins.smartstring.Domain(domainNameArg);
-    return done.promise;
-  }
-
-  /**
-   * list all records of a specified domain name
-   * @param domainNameArg - the domain name that you want to get the records from
-   */
-  public async listRecords(domainNameArg: string): Promise<interfaces.ICflareRecord[]> {
-    const domain = new plugins.smartstring.Domain(domainNameArg);
-    const domainId = await this.getZoneId(domain.zoneName);
-    const responseArg: any = await this.request(
-      'GET',
-      '/zones/' + domainId + '/dns_records?per_page=100'
-    );
-    const result: interfaces.ICflareRecord[] = responseArg.result;
-    return result;
-  }
-
-  /**
-   * list all zones in the associated authenticated account
-   * @param domainName
-   */
-  public async listZones(domainName?: string): Promise<interfaces.ICflareZone[]> {
-    // TODO: handle pagination
-    let requestRoute = `/zones?per_page=50`;
-
-    // may be optionally filtered by domain name
-    if (domainName) {
-      requestRoute = `${requestRoute}&name=${domainName}`;
-    }
-
-    const response: any = await this.request('GET', requestRoute);
-    const result = response.result;
-    return result;
-  }
-
-  public async purgeZone(domainName: string) {
-    const domain = new plugins.smartstring.Domain(domainName);
-    const domainId = await this.getZoneId(domain.zoneName);
-    const requestUrl = `/zones/${domainId}/purge_cache`;
-    const payload = {
-      purge_everything: true
-    };
-    const respone = await this.request('DELETE', requestUrl, payload);
-  }
+  };
 
   public request(
     methodArg: string,
@@ -223,6 +225,4 @@ export class CloudflareAccount {
   private authCheck() {
     return this.authEmail && this.authKey; // check if auth is available
   }
-
-  // acme convenience functions
 }

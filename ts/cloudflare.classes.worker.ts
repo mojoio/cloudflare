@@ -38,7 +38,7 @@ export class CloudflareWorker {
    * gets all routes for a worker
    */
   public async getRoutes() {
-    const zones = await this.workerManager.cfAccount.listZones();
+    const zones = await this.workerManager.cfAccount.convenience.listZones();
     for (const zone of zones) {
       const requestRoute = `/zones/${zone.id}/workers/routes`;
       const response: {

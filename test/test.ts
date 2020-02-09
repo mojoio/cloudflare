@@ -19,7 +19,7 @@ tap.test('should create a valid instance of CloudflareAccount', async () => {
 
 tap.test('.listZones() -> should display an entire account', async tools => {
   tools.timeout(600000);
-  const result = await testCloudflareAccount.listZones();
+  const result = await testCloudflareAccount.convenience.listZones();
   console.log(result);
 });
 
@@ -35,7 +35,7 @@ tap.test(
   '.listRecords(domainName) -> should list all records for a specific Domain Name',
   async tools => {
     tools.timeout(600000);
-    await testCloudflareAccount.listRecords('bleu.de').then(async responseArg => {
+    await testCloudflareAccount.convenience.listRecords('bleu.de').then(async responseArg => {
       console.log(responseArg);
     });
   }
@@ -43,12 +43,13 @@ tap.test(
 
 tap.test('should create a valid record for a subdomain', async tools => {
   tools.timeout(600000);
-  await testCloudflareAccount.createRecord(`${randomPrefix}subdomain.bleu.de`, 'A', '127.0.0.1');
+  await testCloudflareAccount.convenience.createRecord(`${randomPrefix}subdomain.bleu.de`, 'A', '127.0.0.1');
 });
 
 tap.test('should get a record from Cloudflare', async tools => {
   tools.timeout(600000);
   await testCloudflareAccount
+    .convenience
     .getRecord(`${randomPrefix}subdomain.bleu.de`, 'A')
     .then(responseArg => {
       console.log(responseArg);
@@ -58,6 +59,7 @@ tap.test('should get a record from Cloudflare', async tools => {
 tap.test('should remove a subdomain record from Cloudflare', async tools => {
   tools.timeout(600000);
   await testCloudflareAccount
+    .convenience
     .removeRecord(`${randomPrefix}subdomain.bleu.de`, 'A')
     .then(async responseArg => {
       console.log(responseArg);
@@ -65,7 +67,7 @@ tap.test('should remove a subdomain record from Cloudflare', async tools => {
 });
 
 tap.test('.purge(some.domain) -> should purge everything', async () => {
-  await testCloudflareAccount.purgeZone('bleu.de');
+  await testCloudflareAccount.convenience.purgeZone('bleu.de');
 });
 
 // WORKERS

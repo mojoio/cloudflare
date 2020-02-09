@@ -16,7 +16,7 @@ export class WorkerManager {
       'Content-Type': 'application/javascript',
       'Content-Length': Buffer.byteLength(workerScript)
     });
-    return CloudflareWorker.fromApiObject(this, responseBody);
+    return CloudflareWorker.fromApiObject(this, responseBody.result);
   }
 
   /**

@@ -13,7 +13,7 @@ export class CloudflareWorker {
     apiObject
   ): Promise<CloudflareWorker> {
     const newWorker = new CloudflareWorker(workerManager);
-    Object.assign(newWorker, apiObject.result);
+    Object.assign(newWorker, apiObject);
     await newWorker.getRoutes();
     return newWorker;
   }

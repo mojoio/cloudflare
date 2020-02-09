@@ -8,7 +8,10 @@ export interface IWorkerRoute extends interfaces.ICflareWorkerRoute {
 
 export class CloudflareWorker {
   // STATIC
-  public static async fromApiObject(workerManager: WorkerManager, apiObject): Promise<CloudflareWorker> {
+  public static async fromApiObject(
+    workerManager: WorkerManager,
+    apiObject
+  ): Promise<CloudflareWorker> {
     const newWorker = new CloudflareWorker(workerManager);
     Object.assign(newWorker, apiObject.result);
     await newWorker.getRoutes();
@@ -17,7 +20,7 @@ export class CloudflareWorker {
 
   // INSTANCE
   private workerManager: WorkerManager;
-  
+
   public script: string;
   public id: string;
   public etag: string;
@@ -38,19 +41,21 @@ export class CloudflareWorker {
     const zones = await this.workerManager.cfAccount.listZones();
     for (const zone of zones) {
       const requestRoute = `/zones/${zone.id}/workers/routes`;
-      const response: {result: interfaces.ICflareWorkerRoute[]} = await this.workerManager.cfAccount.request('GET', requestRoute);
+      const response: {
+        result: interfaces.ICflareWorkerRoute[];
+      } = await this.workerManager.cfAccount.request('GET', requestRoute);
       for (const route of response.result) {
         console.log('hey');
         console.log(route);
         console.log(this.id);
         if (route.script === this.id) {
-          this.routes.push({...route, zoneName: zone.name});
+          this.routes.push({ ...route, zoneName: zone.name });
         }
       }
     }
   }
 
-  public async setRoutes(routeArray: Array<{zoneName: string, pattern: string}>) {
+  public async setRoutes(routeArray: Array<{ zoneName: string; pattern: string }>) {
     for (const newRoute of routeArray) {
       // lets determine wether a route is new, needs an update or already up to date.
       let routeStatus: 'new' | 'needsUpdate' | 'alreadyUpToDate' = 'new';

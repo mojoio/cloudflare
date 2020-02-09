@@ -2,7 +2,6 @@ import plugins = require('./cloudflare.plugins');
 import * as interfaces from './interfaces';
 
 // interfaces
-import { TDnsRecord } from '@tsclass/tsclass';
 import { WorkerManager } from './cloudflare.classes.workermanager';
 import { ZoneManager } from './cloudflare.classes.zonemanager';
 
@@ -61,7 +60,7 @@ export class CloudflareAccount {
    */
   public async getRecord(
     domainNameArg: string,
-    typeArg: TDnsRecord
+    typeArg: plugins.tsclass.network.TDnsRecord
   ): Promise<interfaces.ICflareRecord> {
     const domain = new plugins.smartstring.Domain(domainNameArg);
     const recordArrayArg = await this.listRecords(domain.zoneName);
@@ -73,7 +72,7 @@ export class CloudflareAccount {
 
   public async createRecord(
     domainNameArg: string,
-    typeArg: TDnsRecord,
+    typeArg: plugins.tsclass.network.TDnsRecord,
     contentArg: string
   ): Promise<any> {
     const domain = new plugins.smartstring.Domain(domainNameArg);
@@ -96,7 +95,10 @@ export class CloudflareAccount {
    * @param domainNameArg
    * @param typeArg
    */
-  public async removeRecord(domainNameArg: string, typeArg: TDnsRecord): Promise<any> {
+  public async removeRecord(
+    domainNameArg: string,
+    typeArg: plugins.tsclass.network.TDnsRecord
+  ): Promise<any> {
     const domain = new plugins.smartstring.Domain(domainNameArg);
     const cflareRecord = await this.getRecord(domain.fullName, typeArg);
     if (cflareRecord) {
@@ -221,4 +223,6 @@ export class CloudflareAccount {
   private authCheck() {
     return this.authEmail && this.authKey; // check if auth is available
   }
+
+  // acme convenience functions
 }

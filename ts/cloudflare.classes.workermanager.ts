@@ -26,6 +26,11 @@ export class WorkerManager {
     const accountIdentifier = await this.cfAccount.getAccountIdentifier();
     const route = `/accounts/${accountIdentifier}/workers/scripts`;
     const response = await this.cfAccount.request('GET', route);
-    console.log(response);
+    const results = response.result;
+    const workers: CloudflareWorker[] = [];
+    for (const apiObject of results) {
+      workers.push(await CloudflareWorker.fromApiObject(this, apiObject));
+    }
+    return workers;
   }
 }

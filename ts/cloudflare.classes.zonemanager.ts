@@ -8,4 +8,6 @@ export class ZoneManager {
   constructor(cfAccountArg: CloudflareAccount) {
     this.cfAccount = cfAccountArg;
   }
+
+  public getZones() {}
 }

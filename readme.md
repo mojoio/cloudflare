@@ -21,20 +21,20 @@ easy cloudflare management
 Use TypeScript for best in class instellisense.
 
 ```javascript
-import * as cflare from '@mojoio/cloudflare'
+import * as cflare from '@mojoio/cloudflare';
 
-const myCflareAccount = new cflare.CflareAccount()
+const myCflareAccount = new cflare.CflareAccount();
 testCflareAccount.auth({
-    email: 'someuser@example.com',
-    key: 'someLongApiKey'
-})
+  email: 'someuser@example.com',
+  key: 'someLongApiKey'
+});
 
 const myAsyncCflareManagement = async () => {
-    // get things
-    const myZones = await myCflareAccount.listZones() // zones are fully typed
-    const myIdForADomain = await myCflareAccount.getZoneId('example.com') // type number
-    const myRecordsForADomain = await myCflareAccount.listRecords('example.com') // records are fully typed
-}
+  // get things
+  const myZones = await myCflareAccount.listZones(); // zones are fully typed
+  const myIdForADomain = await myCflareAccount.getZoneId('example.com'); // type number
+  const myRecordsForADomain = await myCflareAccount.listRecords('example.com'); // records are fully typed
+};
 ```
 
 ## Contribution

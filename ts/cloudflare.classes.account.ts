@@ -113,6 +113,9 @@ export class CloudflareAccount {
       }
     },
     /**
+     * cleanrecord allows the cleaning of any previous records to avoid unwanted sideeffects
+     */
+    /**
      * updates a record
      * @param domainNameArg
      * @param typeArg
@@ -164,6 +167,14 @@ export class CloudflareAccount {
         purge_everything: true
       };
       const respone = await this.request('DELETE', requestUrl, payload);
+    },
+    // acme convenience functions
+    acmeSetDnsChallenge: async (dnsChallenge: plugins.tsclass.network.IDnsChallenge) => {
+      await this.convenience.removeRecord(dnsChallenge.hostName, 'TXT');
+      await this.convenience.createRecord(dnsChallenge.hostName, 'TXT', dnsChallenge.challenge);
+    },
+    acmeRemoveDnsChallenge: async (dnsChallenge: plugins.tsclass.network.IDnsChallenge) => {
+      await this.convenience.removeRecord(dnsChallenge.hostName, 'TXT');
     }
   };
 

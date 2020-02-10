@@ -43,13 +43,16 @@ tap.test(
 
 tap.test('should create a valid record for a subdomain', async tools => {
   tools.timeout(600000);
-  await testCloudflareAccount.convenience.createRecord(`${randomPrefix}subdomain.bleu.de`, 'A', '127.0.0.1');
+  await testCloudflareAccount.convenience.createRecord(
+    `${randomPrefix}subdomain.bleu.de`,
+    'A',
+    '127.0.0.1'
+  );
 });
 
 tap.test('should get a record from Cloudflare', async tools => {
   tools.timeout(600000);
-  await testCloudflareAccount
-    .convenience
+  await testCloudflareAccount.convenience
     .getRecord(`${randomPrefix}subdomain.bleu.de`, 'A')
     .then(responseArg => {
       console.log(responseArg);
@@ -58,8 +61,7 @@ tap.test('should get a record from Cloudflare', async tools => {
 
 tap.test('should remove a subdomain record from Cloudflare', async tools => {
   tools.timeout(600000);
-  await testCloudflareAccount
-    .convenience
+  await testCloudflareAccount.convenience
     .removeRecord(`${randomPrefix}subdomain.bleu.de`, 'A')
     .then(async responseArg => {
       console.log(responseArg);

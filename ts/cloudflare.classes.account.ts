@@ -115,13 +115,16 @@ export class CloudflareAccount {
     /**
      * cleanrecord allows the cleaning of any previous records to avoid unwanted sideeffects
      */
+    cleanRecord: async (domainNameArg: string, typeArg: plugins.tsclass.network.TDnsRecord) => {
+
+    },
     /**
      * updates a record
      * @param domainNameArg
      * @param typeArg
      * @param valueArg
      */
-    updateRecord: async (domainNameArg: string, typeArg: string, valueArg) => {
+    updateRecord: async (domainNameArg: string, typeArg: plugins.tsclass.network.TDnsRecord, valueArg) => {
       // TODO: implement
       const domain = new plugins.smartstring.Domain(domainNameArg);
     },
@@ -170,7 +173,7 @@ export class CloudflareAccount {
     },
     // acme convenience functions
     acmeSetDnsChallenge: async (dnsChallenge: plugins.tsclass.network.IDnsChallenge) => {
-      // await this.convenience.removeRecord(dnsChallenge.hostName, 'TXT');
+      await this.convenience.cleanRecord(dnsChallenge.hostName, 'TXT');
       await this.convenience.createRecord(dnsChallenge.hostName, 'TXT', dnsChallenge.challenge);
     },
     acmeRemoveDnsChallenge: async (dnsChallenge: plugins.tsclass.network.IDnsChallenge) => {

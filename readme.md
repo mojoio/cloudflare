@@ -23,11 +23,7 @@ Use TypeScript for best in class instellisense.
 ```javascript
 import * as cflare from '@mojoio/cloudflare';
 
-const myCflareAccount = new cflare.CflareAccount();
-testCflareAccount.auth({
-  email: 'someuser@example.com',
-  key: 'someLongApiKey'
-});
+const myCflareAccount = new cflare.CflareAccount('mySuperAwesomeAccountToken');
 
 const myAsyncCflareManagement = async () => {
   // get things

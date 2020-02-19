@@ -63,7 +63,7 @@ export class CloudflareAccount {
      */
     getRecord: async (
       domainNameArg: string,
-      typeArg: plugins.tsclass.network.TDnsRecord
+      typeArg: plugins.tsclass.network.TDnsRecordType
     ): Promise<interfaces.ICflareRecord> => {
       const domain = new plugins.smartstring.Domain(domainNameArg);
       const recordArrayArg = await this.convenience.listRecords(domain.zoneName);
@@ -77,7 +77,7 @@ export class CloudflareAccount {
      */
     createRecord: async (
       domainNameArg: string,
-      typeArg: plugins.tsclass.network.TDnsRecord,
+      typeArg: plugins.tsclass.network.TDnsRecordType,
       contentArg: string
     ): Promise<any> => {
       const domain = new plugins.smartstring.Domain(domainNameArg);
@@ -101,7 +101,7 @@ export class CloudflareAccount {
      */
     removeRecord: async (
       domainNameArg: string,
-      typeArg: plugins.tsclass.network.TDnsRecord
+      typeArg: plugins.tsclass.network.TDnsRecordType
     ): Promise<any> => {
       const domain = new plugins.smartstring.Domain(domainNameArg);
       const cflareRecord = await this.convenience.getRecord(domain.fullName, typeArg);
@@ -115,8 +115,8 @@ export class CloudflareAccount {
     /**
      * cleanrecord allows the cleaning of any previous records to avoid unwanted sideeffects
      */
-    cleanRecord: async (domainNameArg: string, typeArg: plugins.tsclass.network.TDnsRecord) => {
-
+    cleanRecord: async (domainNameArg: string, typeArg: plugins.tsclass.network.TDnsRecordType) => {
+      console.log(`cleaning record for ${domainNameArg}`);
     },
     /**
      * updates a record
@@ -124,7 +124,7 @@ export class CloudflareAccount {
      * @param typeArg
      * @param valueArg
      */
-    updateRecord: async (domainNameArg: string, typeArg: plugins.tsclass.network.TDnsRecord, valueArg) => {
+    updateRecord: async (domainNameArg: string, typeArg: plugins.tsclass.network.TDnsRecordType, valueArg) => {
       // TODO: implement
       const domain = new plugins.smartstring.Domain(domainNameArg);
     },

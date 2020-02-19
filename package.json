@@ -29,7 +29,7 @@
     "@pushrocks/smartpromise": "^3.0.6",
     "@pushrocks/smartrequest": "^1.1.47",
     "@pushrocks/smartstring": "^3.0.18",
-    "@tsclass/tsclass": "^3.0.4"
+    "@tsclass/tsclass": "^3.0.7"
   },
   "devDependencies": {
     "@gitzone/tsbuild": "^2.1.17",
@@ -37,7 +37,7 @@
     "@gitzone/tstest": "^1.0.28",
     "@pushrocks/qenv": "^4.0.6",
     "@pushrocks/tapbundle": "^3.2.0",
-    "@types/node": "^13.7.0",
+    "@types/node": "^13.7.2",
     "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0"
   },

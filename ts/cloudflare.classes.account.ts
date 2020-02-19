@@ -6,8 +6,7 @@ import { WorkerManager } from './cloudflare.classes.workermanager';
 import { ZoneManager } from './cloudflare.classes.zonemanager';
 
 export class CloudflareAccount {
-  private authEmail: string;
-  private authKey: string;
+  private authToken: string;
   private accountIdentifier: string;
 
   public workerManager = new WorkerManager(this);
@@ -17,9 +16,8 @@ export class CloudflareAccount {
    * constructor sets auth information on the CloudflareAccountInstance
    * @param optionsArg
    */
-  constructor(optionsArg: { email: string; key: string }) {
-    this.authEmail = optionsArg.email;
-    this.authKey = optionsArg.key;
+  constructor(authTokenArg: string) {
+    this.authToken = authTokenArg
   }
 
   /**
@@ -192,8 +190,7 @@ export class CloudflareAccount {
       method: methodArg,
       headers: {
         'Content-Type': 'application/json',
-        'X-Auth-Email': this.authEmail,
-        'X-Auth-Key': this.authKey,
+        'Authorization': `Bearer ${this.authToken}`,
         'Content-Length': Buffer.byteLength(JSON.stringify(dataArg)),
         ...requestHeadersArg
       },
@@ -237,6 +234,6 @@ export class CloudflareAccount {
   }
 
   private authCheck() {
-    return this.authEmail && this.authKey; // check if auth is available
+    return !!this.authToken; // check if auth is available
   }
 }

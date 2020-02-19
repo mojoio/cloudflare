@@ -11,10 +11,7 @@ const randomPrefix = Math.floor(Math.random() * 2000);
 let testCloudflareAccount: cloudflare.CloudflareAccount;
 
 tap.test('should create a valid instance of CloudflareAccount', async () => {
-  testCloudflareAccount = new cloudflare.CloudflareAccount({
-    email: testQenv.getEnvVarOnDemand('CF_EMAIL'),
-    key: testQenv.getEnvVarOnDemand('CF_KEY')
-  });
+  testCloudflareAccount = new cloudflare.CloudflareAccount(testQenv.getEnvVarOnDemand('CF_KEY'));
 });
 
 tap.test('.listZones() -> should display an entire account', async tools => {

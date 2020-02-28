@@ -17,7 +17,7 @@ export class CloudflareAccount {
    * @param optionsArg
    */
   constructor(authTokenArg: string) {
-    this.authToken = authTokenArg
+    this.authToken = authTokenArg;
   }
 
   /**
@@ -34,25 +34,25 @@ export class CloudflareAccount {
 
   public convenience = {
     /**
-   * gets a zone id of a domain from cloudflare
-   * @param domainName
-   */
-    getZoneId: async(domainName: string) => {
-    const domain = new plugins.smartstring.Domain(domainName);
-    const zoneArray = await this.convenience.listZones(domain.zoneName);
-    const filteredResponse = zoneArray.filter(zoneArg => {
-      return zoneArg.name === domainName;
-    });
-    if (filteredResponse.length >= 1) {
-      return filteredResponse[0].id;
-    } else {
-      plugins.smartlog.defaultLogger.log(
-        'error',
-        `the domain ${domainName} does not appear to be in this account!`
-      );
-      throw new Error(`the domain ${domainName} does not appear to be in this account!`);
-    }
-  },
+     * gets a zone id of a domain from cloudflare
+     * @param domainName
+     */
+    getZoneId: async (domainName: string) => {
+      const domain = new plugins.smartstring.Domain(domainName);
+      const zoneArray = await this.convenience.listZones(domain.zoneName);
+      const filteredResponse = zoneArray.filter(zoneArg => {
+        return zoneArg.name === domainName;
+      });
+      if (filteredResponse.length >= 1) {
+        return filteredResponse[0].id;
+      } else {
+        plugins.smartlog.defaultLogger.log(
+          'error',
+          `the domain ${domainName} does not appear to be in this account!`
+        );
+        throw new Error(`the domain ${domainName} does not appear to be in this account!`);
+      }
+    },
     /**
      * gets a record
      * @param domainNameArg
@@ -121,7 +121,11 @@ export class CloudflareAccount {
      * @param typeArg
      * @param valueArg
      */
-    updateRecord: async (domainNameArg: string, typeArg: plugins.tsclass.network.TDnsRecordType, valueArg) => {
+    updateRecord: async (
+      domainNameArg: string,
+      typeArg: plugins.tsclass.network.TDnsRecordType,
+      valueArg
+    ) => {
       // TODO: implement
       const domain = new plugins.smartstring.Domain(domainNameArg);
     },
@@ -188,29 +192,60 @@ export class CloudflareAccount {
       method: methodArg,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.authToken}`,
+        Authorization: `Bearer ${this.authToken}`,
         'Content-Length': Buffer.byteLength(JSON.stringify(dataArg)),
         ...requestHeadersArg
       },
       requestBody: dataArg
     };
 
+    // route analysis
+    const routeWithoutQuery = routeArg.split('?')[0];
+    let queryParams: string[] = [];
+    if (routeArg.split('?').length > 1) {
+      queryParams = routeArg.split('?')[1].split('&');
+    }
+
     // console.log(options);
 
     let retryCount = 0; // count the amount of retries
     let pageCount = 1;
+
+    const getQueryParams = () => {
+      let result = '';
+      if (queryParams.length > 0) {
+        result += '?';
+      } else {
+        return result;
+      }
+
+      let isFirst = true;
+      for (const queryParam of queryParams) {
+        if (!isFirst) {
+          result += '&';
+        }
+        isFirst = false;
+        const queryParamSerialized = queryParam.split('=');
+        if (queryParam === 'page') {
+          result += `page=${pageCount}`;
+        } else {
+          result += queryParam;
+        }
+      }
+      return result;
+    };
+
     const makeRequest = async (): Promise<plugins.smartrequest.IExtendedIncomingMessage> => {
-      const requestUrl = `https://api.cloudflare.com/client/v4${routeArg}`;
-      const response = await plugins.smartrequest.request(
-        requestUrl,
-        options
-      );
+      const requestUrl = `https://api.cloudflare.com/client/v4${routeWithoutQuery}${getQueryParams()}`;
+      const response = await plugins.smartrequest.request(requestUrl, options);
       if (response.statusCode === 200) {
-        if(response.body.result_info) {
+        if (response.body.result_info) {
           const rI = response.body.result_info;
-          if ((rI.total_count / rI.per_page) > pageCount) {
+          if (rI.total_count / rI.per_page > pageCount) {
             pageCount++;
-            return await makeRequest();
+            const subresponse = await makeRequest();
+            response.body.result = response.body.result.concat(subresponse.body.result);
+            return response;
           } else {
             return response;
           }
@@ -221,9 +256,9 @@ export class CloudflareAccount {
         console.log('rate limited! Waiting for retry!');
         return await retryRequest();
       } else if (response.statusCode === 400) {
-        console.log(`bad request for route ${routeArg}!`);
+        console.log(`bad request for route ${requestUrl}!`);
         console.log(response.body);
-        throw new Error(`request failed for ${routeArg}`);
+        throw new Error(`request failed for ${requestUrl}`);
       } else {
         console.log(response.statusCode);
         throw Error('request failed');

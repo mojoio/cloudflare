@@ -261,6 +261,7 @@ export class CloudflareAccount {
         throw new Error(`request failed for ${requestUrl}`);
       } else {
         console.log(response.statusCode);
+        console.log(response.body);
         throw Error('request failed');
       }
     };

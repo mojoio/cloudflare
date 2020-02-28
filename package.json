@@ -1,6 +1,6 @@
 {
   "name": "@mojoio/cloudflare",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "private": false,
   "description": "easy cloudflare management",
   "main": "dist/index.js",

@@ -24,7 +24,7 @@ tap.test(
   '.getZoneId(domainName) -> should get an Cloudflare Id for a domain string',
   async tools => {
     tools.timeout(600000);
-    await testCloudflareAccount.getZoneId('bleu.de');
+    await testCloudflareAccount.convenience.getZoneId('bleu.de');
   }
 );
 

@@ -73,14 +73,14 @@ export class CloudflareWorker {
 
       // lets care about actually setting routes
       if (routeStatus === 'new') {
-        const zoneId = await this.workerManager.cfAccount.getZoneId(newRoute.zoneName);
+        const zoneId = await this.workerManager.cfAccount.convenience.getZoneId(newRoute.zoneName);
         const requestRoute = `/zones/${zoneId}/workers/routes`;
         await this.workerManager.cfAccount.request('POST', requestRoute, {
           pattern: newRoute.pattern,
           script: this.id
         });
       } else if (routeStatus === 'needsUpdate') {
-        const zoneId = await this.workerManager.cfAccount.getZoneId(newRoute.zoneName);
+        const zoneId = await this.workerManager.cfAccount.convenience.getZoneId(newRoute.zoneName);
         const requestRoute = `/zones/${zoneId}/workers/routes/${routeIdForUpdate}`;
         await this.workerManager.cfAccount.request('PUT', requestRoute, {
           pattern: newRoute.pattern,

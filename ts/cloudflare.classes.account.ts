@@ -32,11 +32,12 @@ export class CloudflareAccount {
     return this.accountIdentifier;
   }
 
-  /**
+  public convenience = {
+    /**
    * gets a zone id of a domain from cloudflare
    * @param domainName
    */
-  public async getZoneId(domainName: string) {
+    getZoneId: async(domainName: string) => {
     const domain = new plugins.smartstring.Domain(domainName);
     const zoneArray = await this.convenience.listZones(domain.zoneName);
     const filteredResponse = zoneArray.filter(zoneArg => {
@@ -51,9 +52,7 @@ export class CloudflareAccount {
       );
       throw new Error(`the domain ${domainName} does not appear to be in this account!`);
     }
-  }
-
-  public convenience = {
+  },
     /**
      * gets a record
      * @param domainNameArg
@@ -79,7 +78,7 @@ export class CloudflareAccount {
       contentArg: string
     ): Promise<any> => {
       const domain = new plugins.smartstring.Domain(domainNameArg);
-      const domainIdArg = await this.getZoneId(domain.zoneName);
+      const domainIdArg = await this.convenience.getZoneId(domain.zoneName);
       const dataObject = {
         name: domain.fullName,
         type: typeArg,
@@ -132,7 +131,7 @@ export class CloudflareAccount {
      */
     listRecords: async (domainNameArg: string): Promise<interfaces.ICflareRecord[]> => {
       const domain = new plugins.smartstring.Domain(domainNameArg);
-      const domainId = await this.getZoneId(domain.zoneName);
+      const domainId = await this.convenience.getZoneId(domain.zoneName);
       const responseArg: any = await this.request(
         'GET',
         '/zones/' + domainId + '/dns_records?per_page=100'
@@ -162,7 +161,7 @@ export class CloudflareAccount {
      */
     purgeZone: async (domainName: string): Promise<void> => {
       const domain = new plugins.smartstring.Domain(domainName);
-      const domainId = await this.getZoneId(domain.zoneName);
+      const domainId = await this.convenience.getZoneId(domain.zoneName);
       const requestUrl = `/zones/${domainId}/purge_cache`;
       const payload = {
         purge_everything: true
@@ -179,13 +178,12 @@ export class CloudflareAccount {
     }
   };
 
-  public request(
+  public async request(
     methodArg: string,
     routeArg: string,
     dataArg: any = {},
     requestHeadersArg = {}
   ): Promise<any> {
-    const done = plugins.smartpromise.defer();
     const options: plugins.smartrequest.ISmartRequestOptions = {
       method: methodArg,
       headers: {
@@ -200,25 +198,38 @@ export class CloudflareAccount {
     // console.log(options);
 
     let retryCount = 0; // count the amount of retries
-
-    const makeRequest = async () => {
-      const response: any = await plugins.smartrequest.request(
-        `https://api.cloudflare.com/client/v4${routeArg}`,
+    let pageCount = 1;
+    const makeRequest = async (): Promise<plugins.smartrequest.IExtendedIncomingMessage> => {
+      const requestUrl = `https://api.cloudflare.com/client/v4${routeArg}`;
+      const response = await plugins.smartrequest.request(
+        requestUrl,
         options
       );
       if (response.statusCode === 200) {
-        done.resolve(response.body);
+        if(response.body.result_info) {
+          const rI = response.body.result_info;
+          if ((rI.total_count / rI.per_page) > pageCount) {
+            pageCount++;
+            return await makeRequest();
+          } else {
+            return response;
+          }
+        } else {
+          return response;
+        }
       } else if (response.statusCode === 429) {
         console.log('rate limited! Waiting for retry!');
-        retryRequest();
+        return await retryRequest();
       } else if (response.statusCode === 400) {
-        console.log(`bad request for route ${routeArg}! Going to retry!`);
+        console.log(`bad request for route ${routeArg}!`);
         console.log(response.body);
+        throw new Error(`request failed for ${routeArg}`);
       } else {
         console.log(response.statusCode);
-        done.reject(new Error('request failed'));
+        throw Error('request failed');
       }
     };
+
     const retryRequest = async (
       delayTimeArg = Math.floor(Math.random() * (60000 - 8000) + 8000)
     ) => {
@@ -229,8 +240,8 @@ export class CloudflareAccount {
         return await makeRequest();
       }
     };
-    makeRequest();
-    return done.promise;
+    const response = await makeRequest();
+    return response.body;
   }
 
   private authCheck() {

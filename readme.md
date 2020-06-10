@@ -8,13 +8,20 @@ easy cloudflare management
 * [docs (typedoc)](https://mojoio.gitlab.io/cloudflare/)
 
 ## Status for master
-[![pipeline status](https://gitlab.com/mojoio/cloudflare/badges/master/pipeline.svg)](https://gitlab.com/mojoio/cloudflare/commits/master)
-[![coverage report](https://gitlab.com/mojoio/cloudflare/badges/master/coverage.svg)](https://gitlab.com/mojoio/cloudflare/commits/master)
-[![npm downloads per month](https://img.shields.io/npm/dm/@mojoio/cloudflare.svg)](https://www.npmjs.com/package/@mojoio/cloudflare)
-[![Known Vulnerabilities](https://snyk.io/test/npm/@mojoio/cloudflare/badge.svg)](https://snyk.io/test/npm/@mojoio/cloudflare)
-[![TypeScript](https://img.shields.io/badge/TypeScript->=%203.x-blue.svg)](https://nodejs.org/dist/latest-v10.x/docs/api/)
-[![node](https://img.shields.io/badge/node->=%2010.x.x-blue.svg)](https://nodejs.org/dist/latest-v10.x/docs/api/)
-[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-prettier-ff69b4.svg)](https://prettier.io/)
+
+Status Category | Status Badge
+-- | --
+GitLab Pipelines | [![pipeline status](https://gitlab.com/mojoio/cloudflare/badges/master/pipeline.svg)](https://lossless.cloud)
+GitLab Pipline Test Coverage | [![coverage report](https://gitlab.com/mojoio/cloudflare/badges/master/coverage.svg)](https://lossless.cloud)
+npm | [![npm downloads per month](https://badgen.net/npm/dy/@mojoio/cloudflare)](https://lossless.cloud)
+Snyk | [![Known Vulnerabilities](https://badgen.net/snyk/mojoio/cloudflare)](https://lossless.cloud)
+TypeScript Support | [![TypeScript](https://badgen.net/badge/TypeScript/>=%203.x/blue?icon=typescript)](https://lossless.cloud)
+node Support | [![node](https://img.shields.io/badge/node->=%2010.x.x-blue.svg)](https://nodejs.org/dist/latest-v10.x/docs/api/)
+Code Style | [![Code Style](https://badgen.net/badge/style/prettier/purple)](https://lossless.cloud)
+PackagePhobia (total standalone install weight) | [![PackagePhobia](https://badgen.net/packagephobia/install/@mojoio/cloudflare)](https://lossless.cloud)
+PackagePhobia (package size on registry) | [![PackagePhobia](https://badgen.net/packagephobia/publish/@mojoio/cloudflare)](https://lossless.cloud)
+BundlePhobia (total size when bundled) | [![BundlePhobia](https://badgen.net/bundlephobia/minzip/@mojoio/cloudflare)](https://lossless.cloud)
+Platform support | [![Supports Windows 10](https://badgen.net/badge/supports%20Windows%2010/yes/green?icon=windows)](https://lossless.cloud) [![Supports Mac OS X](https://badgen.net/badge/supports%20Mac%20OS%20X/yes/green?icon=apple)](https://lossless.cloud)
 
 ## Usage
 

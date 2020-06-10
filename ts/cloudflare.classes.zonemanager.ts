@@ -14,14 +14,14 @@ export class ZoneManager {
   public async getZones(zoneName: string) {
     let requestRoute = `/zones?per_page=50`;
     // may be optionally filtered by domain name
-    
+
     if (zoneName) {
       requestRoute = `${requestRoute}&name=${zoneName}`;
     }
 
     const response: any = await this.cfAccount.request('GET', requestRoute);
     const apiObjects: interfaces.ICflareZone[] = response.result;
-    
+
     const cloudflareZoneArray = [];
     for (const apiObject of apiObjects) {
       cloudflareZoneArray.push(CloudflareZone.createFromApiObject(apiObject));

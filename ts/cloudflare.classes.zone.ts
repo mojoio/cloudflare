@@ -47,5 +47,4 @@ export class CloudflareZone implements interfaces.ICflareZone {
   paused: boolean;
   type: string;
   checked_on: string;
-
 }

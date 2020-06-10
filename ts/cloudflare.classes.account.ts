@@ -47,10 +47,7 @@ export class CloudflareAccount {
       if (filteredResponse.length >= 1) {
         return filteredResponse[0].id;
       } else {
-        logger.log(
-          'error',
-          `the domain ${domainName} does not appear to be in this account!`
-        );
+        logger.log('error', `the domain ${domainName} does not appear to be in this account!`);
         throw new Error(`the domain ${domainName} does not appear to be in this account!`);
       }
     },

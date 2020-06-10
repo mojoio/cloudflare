@@ -1,6 +1,7 @@
 import * as plugins from './cloudflare.plugins';
 import * as interfaces from './interfaces';
 import { WorkerManager } from './cloudflare.classes.workermanager';
+import { logger } from './cloudflare.logger';
 
 export interface IWorkerRoute extends interfaces.ICflareWorkerRoute {
   zoneName: string;
@@ -66,7 +67,7 @@ export class CloudflareWorker {
           routeIdForUpdate = existingRoute.id;
           if (existingRoute.script === this.id) {
             routeStatus = 'alreadyUpToDate';
-            plugins.smartlog.defaultLogger.log('info', `route already exists, no update needed`);
+            logger.log('info', `route already exists, no update needed`);
           }
         }
       }

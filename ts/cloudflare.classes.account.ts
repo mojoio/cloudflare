@@ -1,4 +1,5 @@
 import plugins = require('./cloudflare.plugins');
+import { logger } from './cloudflare.logger';
 import * as interfaces from './interfaces';
 
 // interfaces
@@ -46,7 +47,7 @@ export class CloudflareAccount {
       if (filteredResponse.length >= 1) {
         return filteredResponse[0].id;
       } else {
-        plugins.smartlog.defaultLogger.log(
+        logger.log(
           'error',
           `the domain ${domainName} does not appear to be in this account!`
         );

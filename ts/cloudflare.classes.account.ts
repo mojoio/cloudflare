@@ -175,7 +175,7 @@ export class CloudflareAccount {
     // acme convenience functions
     acmeSetDnsChallenge: async (dnsChallenge: plugins.tsclass.network.IDnsChallenge) => {
       await this.convenience.cleanRecord(dnsChallenge.hostName, 'TXT');
-      await this.convenience.createRecord(dnsChallenge.hostName, 'TXT', dnsChallenge.challenge, 2);
+      await this.convenience.createRecord(dnsChallenge.hostName, 'TXT', dnsChallenge.challenge, 120);
     },
     acmeRemoveDnsChallenge: async (dnsChallenge: plugins.tsclass.network.IDnsChallenge) => {
       await this.convenience.removeRecord(dnsChallenge.hostName, 'TXT');

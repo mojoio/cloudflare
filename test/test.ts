@@ -43,7 +43,8 @@ tap.test('should create a valid record for a subdomain', async (tools) => {
   await testCloudflareAccount.convenience.createRecord(
     `${randomPrefix}subdomain.bleu.de`,
     'A',
-    '127.0.0.1'
+    '127.0.0.1',
+    120
   );
 });
 

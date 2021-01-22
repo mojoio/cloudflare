@@ -14,7 +14,7 @@ tap.test('should create a valid instance of CloudflareAccount', async () => {
   testCloudflareAccount = new cloudflare.CloudflareAccount(testQenv.getEnvVarOnDemand('CF_KEY'));
 });
 
-tap.test('.listZones() -> should display an entire account', async tools => {
+tap.test('.listZones() -> should display an entire account', async (tools) => {
   tools.timeout(600000);
   const result = await testCloudflareAccount.convenience.listZones();
   console.log(result);
@@ -22,7 +22,7 @@ tap.test('.listZones() -> should display an entire account', async tools => {
 
 tap.test(
   '.getZoneId(domainName) -> should get an Cloudflare Id for a domain string',
-  async tools => {
+  async (tools) => {
     tools.timeout(600000);
     await testCloudflareAccount.convenience.getZoneId('bleu.de');
   }
@@ -30,15 +30,15 @@ tap.test(
 
 tap.test(
   '.listRecords(domainName) -> should list all records for a specific Domain Name',
-  async tools => {
+  async (tools) => {
     tools.timeout(600000);
-    await testCloudflareAccount.convenience.listRecords('bleu.de').then(async responseArg => {
+    await testCloudflareAccount.convenience.listRecords('bleu.de').then(async (responseArg) => {
       console.log(responseArg);
     });
   }
 );
 
-tap.test('should create a valid record for a subdomain', async tools => {
+tap.test('should create a valid record for a subdomain', async (tools) => {
   tools.timeout(600000);
   await testCloudflareAccount.convenience.createRecord(
     `${randomPrefix}subdomain.bleu.de`,
@@ -47,20 +47,20 @@ tap.test('should create a valid record for a subdomain', async tools => {
   );
 });
 
-tap.test('should get a record from Cloudflare', async tools => {
+tap.test('should get a record from Cloudflare', async (tools) => {
   tools.timeout(600000);
   await testCloudflareAccount.convenience
     .getRecord(`${randomPrefix}subdomain.bleu.de`, 'A')
-    .then(responseArg => {
+    .then((responseArg) => {
       console.log(responseArg);
     });
 });
 
-tap.test('should remove a subdomain record from Cloudflare', async tools => {
+tap.test('should remove a subdomain record from Cloudflare', async (tools) => {
   tools.timeout(600000);
   await testCloudflareAccount.convenience
     .removeRecord(`${randomPrefix}subdomain.bleu.de`, 'A')
-    .then(async responseArg => {
+    .then(async (responseArg) => {
       console.log(responseArg);
     });
 });
@@ -78,8 +78,8 @@ tap.test('should create a worker', async () => {
   await worker.setRoutes([
     {
       zoneName: 'bleu.de',
-      pattern: 'https://*bleu.de/hello'
-    }
+      pattern: 'https://*bleu.de/hello',
+    },
   ]);
   console.log(worker);
 });

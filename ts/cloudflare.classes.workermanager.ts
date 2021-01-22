@@ -14,7 +14,7 @@ export class WorkerManager {
     const route = `/accounts/${accountIdentifier}/workers/scripts/${workerName}`;
     const responseBody = await this.cfAccount.request('PUT', route, workerScript, {
       'Content-Type': 'application/javascript',
-      'Content-Length': Buffer.byteLength(workerScript)
+      'Content-Length': Buffer.byteLength(workerScript),
     });
     return CloudflareWorker.fromApiObject(this, responseBody.result);
   }

@@ -41,7 +41,7 @@ export class CloudflareAccount {
     getZoneId: async (domainName: string) => {
       const domain = new plugins.smartstring.Domain(domainName);
       const zoneArray = await this.convenience.listZones(domain.zoneName);
-      const filteredResponse = zoneArray.filter(zoneArg => {
+      const filteredResponse = zoneArray.filter((zoneArg) => {
         return zoneArg.name === domainName;
       });
       if (filteredResponse.length >= 1) {
@@ -62,7 +62,7 @@ export class CloudflareAccount {
     ): Promise<interfaces.ICflareRecord> => {
       const domain = new plugins.smartstring.Domain(domainNameArg);
       const recordArrayArg = await this.convenience.listRecords(domain.zoneName);
-      const filteredResponse = recordArrayArg.filter(recordArg => {
+      const filteredResponse = recordArrayArg.filter((recordArg) => {
         return recordArg.type === typeArg && recordArg.name === domainNameArg;
       });
       return filteredResponse[0];
@@ -82,7 +82,7 @@ export class CloudflareAccount {
         name: domain.fullName,
         type: typeArg,
         content: contentArg,
-        ttl: ttlArg
+        ttl: ttlArg,
       };
       const response = await this.request(
         'POST',
@@ -168,7 +168,7 @@ export class CloudflareAccount {
       const domainId = await this.convenience.getZoneId(domain.zoneName);
       const requestUrl = `/zones/${domainId}/purge_cache`;
       const payload = {
-        purge_everything: true
+        purge_everything: true,
       };
       const respone = await this.request('DELETE', requestUrl, payload);
     },
@@ -179,7 +179,7 @@ export class CloudflareAccount {
     },
     acmeRemoveDnsChallenge: async (dnsChallenge: plugins.tsclass.network.IDnsChallenge) => {
       await this.convenience.removeRecord(dnsChallenge.hostName, 'TXT');
-    }
+    },
   };
 
   public async request(
@@ -194,9 +194,9 @@ export class CloudflareAccount {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.authToken}`,
         'Content-Length': Buffer.byteLength(JSON.stringify(dataArg)),
-        ...requestHeadersArg
+        ...requestHeadersArg,
       },
-      requestBody: dataArg
+      requestBody: dataArg,
     };
 
     // route analysis

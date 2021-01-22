@@ -78,14 +78,14 @@ export class CloudflareWorker {
         const requestRoute = `/zones/${zoneId}/workers/routes`;
         await this.workerManager.cfAccount.request('POST', requestRoute, {
           pattern: newRoute.pattern,
-          script: this.id
+          script: this.id,
         });
       } else if (routeStatus === 'needsUpdate') {
         const zoneId = await this.workerManager.cfAccount.convenience.getZoneId(newRoute.zoneName);
         const requestRoute = `/zones/${zoneId}/workers/routes/${routeIdForUpdate}`;
         await this.workerManager.cfAccount.request('PUT', requestRoute, {
           pattern: newRoute.pattern,
-          script: this.id
+          script: this.id,
         });
       }
     }

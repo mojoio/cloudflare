@@ -73,14 +73,16 @@ export class CloudflareAccount {
     createRecord: async (
       domainNameArg: string,
       typeArg: plugins.tsclass.network.TDnsRecordType,
-      contentArg: string
+      contentArg: string,
+      ttlArg = 1
     ): Promise<any> => {
       const domain = new plugins.smartstring.Domain(domainNameArg);
       const domainIdArg = await this.convenience.getZoneId(domain.zoneName);
       const dataObject = {
         name: domain.fullName,
         type: typeArg,
-        content: contentArg
+        content: contentArg,
+        ttl: ttlArg
       };
       const response = await this.request(
         'POST',
@@ -173,7 +175,7 @@ export class CloudflareAccount {
     // acme convenience functions
     acmeSetDnsChallenge: async (dnsChallenge: plugins.tsclass.network.IDnsChallenge) => {
       await this.convenience.cleanRecord(dnsChallenge.hostName, 'TXT');
-      await this.convenience.createRecord(dnsChallenge.hostName, 'TXT', dnsChallenge.challenge);
+      await this.convenience.createRecord(dnsChallenge.hostName, 'TXT', dnsChallenge.challenge, 2);
     },
     acmeRemoveDnsChallenge: async (dnsChallenge: plugins.tsclass.network.IDnsChallenge) => {
       await this.convenience.removeRecord(dnsChallenge.hostName, 'TXT');
